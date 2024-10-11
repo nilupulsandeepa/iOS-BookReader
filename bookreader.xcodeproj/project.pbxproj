@@ -13,6 +13,12 @@
 		5114B1AC2CB8F776005655A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5114B1AB2CB8F776005655A9 /* Preview Assets.xcassets */; };
 		5114B1AE2CB8F776005655A9 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114B1AD2CB8F776005655A9 /* Persistence.swift */; };
 		5114B1B12CB8F776005655A9 /* bookreader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5114B1AF2CB8F776005655A9 /* bookreader.xcdatamodeld */; };
+		5114B1B92CB8FA7C005655A9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1B82CB8FA7C005655A9 /* FirebaseAnalytics */; };
+		5114B1BB2CB8FA7C005655A9 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BA2CB8FA7C005655A9 /* FirebaseCore */; };
+		5114B1BD2CB8FA7C005655A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BC2CB8FA7C005655A9 /* FirebaseDatabase */; };
+		5114B1BF2CB8FA7C005655A9 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BE2CB8FA7C005655A9 /* FirebaseRemoteConfig */; };
+		5114B1C12CB8FA7C005655A9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1C02CB8FA7C005655A9 /* FirebaseStorage */; };
+		5114B1C32CB8FAA2005655A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5114B1C22CB8FAA2005655A9 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +29,7 @@
 		5114B1AB2CB8F776005655A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5114B1AD2CB8F776005655A9 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5114B1B02CB8F776005655A9 /* bookreader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bookreader.xcdatamodel; sourceTree = "<group>"; };
+		5114B1C22CB8FAA2005655A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +37,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5114B1BD2CB8FA7C005655A9 /* FirebaseDatabase in Frameworks */,
+				5114B1BB2CB8FA7C005655A9 /* FirebaseCore in Frameworks */,
+				5114B1B92CB8FA7C005655A9 /* FirebaseAnalytics in Frameworks */,
+				5114B1C12CB8FA7C005655A9 /* FirebaseStorage in Frameworks */,
+				5114B1BF2CB8FA7C005655A9 /* FirebaseRemoteConfig in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +67,7 @@
 		5114B1A32CB8F774005655A9 /* bookreader */ = {
 			isa = PBXGroup;
 			children = (
+				5114B1C22CB8FAA2005655A9 /* GoogleService-Info.plist */,
 				5114B1A42CB8F774005655A9 /* bookreaderApp.swift */,
 				5114B1A62CB8F774005655A9 /* ContentView.swift */,
 				5114B1A82CB8F776005655A9 /* Assets.xcassets */,
@@ -89,6 +102,13 @@
 			dependencies = (
 			);
 			name = bookreader;
+			packageProductDependencies = (
+				5114B1B82CB8FA7C005655A9 /* FirebaseAnalytics */,
+				5114B1BA2CB8FA7C005655A9 /* FirebaseCore */,
+				5114B1BC2CB8FA7C005655A9 /* FirebaseDatabase */,
+				5114B1BE2CB8FA7C005655A9 /* FirebaseRemoteConfig */,
+				5114B1C02CB8FA7C005655A9 /* FirebaseStorage */,
+			);
 			productName = bookreader;
 			productReference = 5114B1A12CB8F774005655A9 /* bookreader.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +137,9 @@
 				Base,
 			);
 			mainGroup = 5114B1982CB8F774005655A9;
+			packageReferences = (
+				5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 5114B1A22CB8F774005655A9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -133,6 +156,7 @@
 			files = (
 				5114B1AC2CB8F776005655A9 /* Preview Assets.xcassets in Resources */,
 				5114B1A92CB8F776005655A9 /* Assets.xcassets in Resources */,
+				5114B1C32CB8FAA2005655A9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +376,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5114B1B82CB8FA7C005655A9 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		5114B1BA2CB8FA7C005655A9 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		5114B1BC2CB8FA7C005655A9 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		5114B1BE2CB8FA7C005655A9 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		5114B1C02CB8FA7C005655A9 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5114B1AF2CB8F776005655A9 /* bookreader.xcdatamodeld */ = {
