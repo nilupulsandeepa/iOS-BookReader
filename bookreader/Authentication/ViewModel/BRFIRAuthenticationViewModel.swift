@@ -12,17 +12,28 @@ import GoogleSignIn
 
 public class BRFIRAuthenticationViewModel: ObservableObject {
     //---- MARK: Properties
-    @Published var currentUser: User? = nil
+    @Published var currentUser: BRUser? = nil
+    
+    
     
     //---- MARK: Initialization
     init() {
         _ = Auth.auth().addStateDidChangeListener { auth, user in
-            self.currentUser = user
+            if let m_User: User = user {
+                print("Have User")
+            } else {
+                print("No User")
+                self.currentUser = nil
+            }
         }
     }
     
     //---- MARK: Action Methods
     public func startGoogleSignIn() {
+        if (self.currentUser != nil) {
+            try? Auth.auth().signOut()
+            return
+        }
         guard let m_WindowScene: UIWindowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
             // Handle Error
             return
@@ -34,34 +45,86 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
         }
         
         GIDSignIn.sharedInstance.signIn(withPresenting: m_RootViewController) {
-            (result, error) in
+            (gidResult, error) in
             
             if error != nil {
                 // Handle Error
                 return
             }
             
-            guard let m_Authentication: GIDGoogleUser = result?.user, let m_IDToken: String = m_Authentication.idToken?.tokenString else {
+            guard let m_Authentication: GIDGoogleUser = gidResult?.user, let m_IDToken: String = m_Authentication.idToken?.tokenString else {
                 // Handle Error
                 return
             }
             
-            if let m_ProfileImageURL: URL = result?.user.profile?.imageURL(withDimension: 512) {
-                var img: UIImage? = UIImage(data: try! Data(contentsOf: m_ProfileImageURL))
-                print("")
+            let m_GIDCredential: AuthCredential = GoogleAuthProvider.credential(withIDToken: m_IDToken, accessToken: m_Authentication.accessToken.tokenString)
+            self.firebaseSignIn(credential: m_GIDCredential)
+        }
+    }
+    
+    //---- MARK: Helper Methods
+    private func firebaseSignIn(credential: AuthCredential) {
+        let m_GIDCredential: AuthCredential = credential
+        Auth.auth().signIn(with: m_GIDCredential) { result, error in
+            if error != nil {
+                // Handle Error
+                return
+            } else {
+                if let m_ProfileImageURL: URL = result?.user.photoURL {
+                    self.saveProfilePicture(url: m_ProfileImageURL, completion: {
+                        (savedURL, errorFileSave) in
+                            let m_CurrentUser: BRUser = BRUser()
+                            if (errorFileSave == nil) {
+                                m_CurrentUser.setProfilePictureURL(path: savedURL!)
+                            }
+                            m_CurrentUser.setAuthenticationID(id: result!.user.uid)
+                            m_CurrentUser.setDisplayName(name: result!.user.displayName ?? "")
+                            m_CurrentUser.setEmail(email: result?.user.email ?? "")
+                            self.currentUser = m_CurrentUser
+                        }
+                    )
+                }
+                
+            }
+        }
+    }
+    
+    private func saveProfilePicture(url: URL, completion: @escaping (String?, Error?) -> Void) {
+        let m_ProfileImageURL: URL = url
+        self.loadProfilePicture(url: m_ProfileImageURL) {
+            data in
+            
+            guard let m_Data: Data = data else {
+                completion(nil, BRError.fileError)
+                return
             }
             
-            let m_GIDCredential: AuthCredential = GoogleAuthProvider.credential(withIDToken: m_IDToken, accessToken: m_Authentication.accessToken.tokenString)
+            if let m_ProfileImage: UIImage = UIImage(data: m_Data) {
+                let m_FinalURL: String = BRLocalStorageManager.shared.saveFileInLocalStorage(fileData: m_ProfileImage.pngData()!, fileName: "user-profile.png", folderName: "profile-data")
+                completion(m_FinalURL, nil)
+            } else {
+                completion(nil, BRError.fileError)
+            }
+        }
+    }
+    
+    private func loadProfilePicture(url: URL, completion: @escaping (Data?) -> Void) {
+        let m_Request: URLRequest = URLRequest(url: url)
+        let m_RequestTask: URLSessionTask = URLSession.shared.dataTask(with: m_Request) {
+            (data, response, error) in
             
-            Auth.auth().signIn(with: m_GIDCredential) { result, error in
-                if error != nil {
-                    // Handle Error
+            let m_Response: HTTPURLResponse = response as! HTTPURLResponse
+            if m_Response.statusCode >= 400 && m_Response.statusCode < 200 {
+                DispatchQueue.main.async {
+                    completion(nil)
                     return
-                } else {
-                    print("Authentication Successfull => \(result?.user.uid) => \(result?.user.displayName)")
                 }
             }
             
+            DispatchQueue.main.async {
+                completion(data)
+            }
         }
+        m_RequestTask.resume()
     }
 }

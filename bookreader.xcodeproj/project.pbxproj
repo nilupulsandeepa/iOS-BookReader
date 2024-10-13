@@ -19,6 +19,10 @@
 		5114B1BF2CB8FA7C005655A9 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BE2CB8FA7C005655A9 /* FirebaseRemoteConfig */; };
 		5114B1C12CB8FA7C005655A9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1C02CB8FA7C005655A9 /* FirebaseStorage */; };
 		516A0CAE2CBBAEFE0026954E /* BRUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CAD2CBBAEFE0026954E /* BRUser.swift */; };
+		516A0CB12CBBB82B0026954E /* BRLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CB02CBBB82B0026954E /* BRLocalStorageManager.swift */; };
+		516A0CB32CBBB83F0026954E /* BRNameSpaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CB22CBBB83F0026954E /* BRNameSpaces.swift */; };
+		516A0CB52CBBE1E50026954E /* BRError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CB42CBBE1E50026954E /* BRError.swift */; };
+		516A0CB82CBBEE300026954E /* BRUserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CB72CBBEE300026954E /* BRUserDefaultManager.swift */; };
 		516BD1E62CBA453C0009CA9C /* BRNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD1E52CBA453C0009CA9C /* BRNavigationView.swift */; };
 		516BD1EA2CBA47680009CA9C /* BRBookStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD1E92CBA47680009CA9C /* BRBookStoreView.swift */; };
 		516BD1EE2CBA487A0009CA9C /* BRLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD1ED2CBA487A0009CA9C /* BRLibraryView.swift */; };
@@ -46,6 +50,10 @@
 		5114B1AD2CB8F776005655A9 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5114B1B02CB8F776005655A9 /* bookreader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bookreader.xcdatamodel; sourceTree = "<group>"; };
 		516A0CAD2CBBAEFE0026954E /* BRUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRUser.swift; sourceTree = "<group>"; };
+		516A0CB02CBBB82B0026954E /* BRLocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRLocalStorageManager.swift; sourceTree = "<group>"; };
+		516A0CB22CBBB83F0026954E /* BRNameSpaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNameSpaces.swift; sourceTree = "<group>"; };
+		516A0CB42CBBE1E50026954E /* BRError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRError.swift; sourceTree = "<group>"; };
+		516A0CB72CBBEE300026954E /* BRUserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRUserDefaultManager.swift; sourceTree = "<group>"; };
 		516BD1E52CBA453C0009CA9C /* BRNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNavigationView.swift; sourceTree = "<group>"; };
 		516BD1E92CBA47680009CA9C /* BRBookStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBookStoreView.swift; sourceTree = "<group>"; };
 		516BD1ED2CBA487A0009CA9C /* BRLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRLibraryView.swift; sourceTree = "<group>"; };
@@ -100,6 +108,8 @@
 		5114B1A32CB8F774005655A9 /* bookreader */ = {
 			isa = PBXGroup;
 			children = (
+				516A0CB62CBBEE210026954E /* UserDefaults */,
+				516A0CAF2CBBB80F0026954E /* LocalStorage */,
 				516BD20C2CBAD9E80009CA9C /* Authentication */,
 				516BD1FE2CBA9A6C0009CA9C /* Firebase */,
 				516BD1F32CBA4D190009CA9C /* Utils */,
@@ -116,6 +126,7 @@
 				5114B1AF2CB8F776005655A9 /* bookreader.xcdatamodeld */,
 				5114B1AA2CB8F776005655A9 /* Preview Content */,
 				516BD1FC2CBA981B0009CA9C /* AppDelegate.swift */,
+				516A0CB22CBBB83F0026954E /* BRNameSpaces.swift */,
 			);
 			path = bookreader;
 			sourceTree = "<group>";
@@ -149,6 +160,22 @@
 				516A0CAD2CBBAEFE0026954E /* BRUser.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		516A0CAF2CBBB80F0026954E /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				516A0CB02CBBB82B0026954E /* BRLocalStorageManager.swift */,
+			);
+			path = LocalStorage;
+			sourceTree = "<group>";
+		};
+		516A0CB62CBBEE210026954E /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				516A0CB72CBBEE300026954E /* BRUserDefaultManager.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		516BD1E22CBA44FF0009CA9C /* Navigation */ = {
@@ -231,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				516BD1F42CBA4D260009CA9C /* BRExtensions.swift */,
+				516A0CB42CBBE1E50026954E /* BRError.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -348,6 +376,8 @@
 			files = (
 				516BD1EE2CBA487A0009CA9C /* BRLibraryView.swift in Sources */,
 				516BD1F72CBA66CB0009CA9C /* BRProfilePictureView.swift in Sources */,
+				516A0CB82CBBEE300026954E /* BRUserDefaultManager.swift in Sources */,
+				516A0CB52CBBE1E50026954E /* BRError.swift in Sources */,
 				5114B1AE2CB8F776005655A9 /* Persistence.swift in Sources */,
 				5114B1B12CB8F776005655A9 /* bookreader.xcdatamodeld in Sources */,
 				516BD1F92CBA7BC50009CA9C /* BRBookCollectionView.swift in Sources */,
@@ -359,7 +389,9 @@
 				516BD20A2CBACB9D0009CA9C /* BRFeaturedBookView.swift in Sources */,
 				516A0CAE2CBBAEFE0026954E /* BRUser.swift in Sources */,
 				516BD1EA2CBA47680009CA9C /* BRBookStoreView.swift in Sources */,
+				516A0CB12CBBB82B0026954E /* BRLocalStorageManager.swift in Sources */,
 				5114B1A52CB8F774005655A9 /* bookreaderApp.swift in Sources */,
+				516A0CB32CBBB83F0026954E /* BRNameSpaces.swift in Sources */,
 				516BD1FD2CBA981B0009CA9C /* AppDelegate.swift in Sources */,
 				516BD1FB2CBA7EF50009CA9C /* BRBookThumbnailView.swift in Sources */,
 				516BD1F12CBA49CA0009CA9C /* BRSettingsView.swift in Sources */,

@@ -13,11 +13,11 @@ public class BRFIRDatabaseManager {
 
     init() {
         ref = Database.database().reference()
-        ref.child("/users/hhhhhh").getData(completion: {
-            err, snapshot in
-            var ss = snapshot!.value! as! [String: Any]
-            print(ss["rented_books"]! as! [String])
-        })
+//        ref.child("/users/hhhhhh").getData(completion: {
+//            err, snapshot in
+//            var ss = snapshot!.value! as! [String: Any]
+//            print(ss["rented_books"]! as! [String])
+//        })
 //        let books: [String] = [
 //            "Echoes of Eternity",
 //            "The Forgotten Chronicles",
