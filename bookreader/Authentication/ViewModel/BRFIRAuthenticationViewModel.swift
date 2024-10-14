@@ -19,10 +19,13 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
     //---- MARK: Initialization
     init() {
         _ = Auth.auth().addStateDidChangeListener { auth, user in
-            if let m_User: User = user {
-                print("Have User")
+            if user != nil {
+                if (self.currentUser == nil) {
+                    self.currentUser = BRUserDefaultManager.shared.currentUser
+                }
             } else {
                 print("No User")
+                BRUserDefaultManager.shared.currentUser = nil
                 self.currentUser = nil
             }
         }
@@ -58,12 +61,12 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
             }
             
             let m_GIDCredential: AuthCredential = GoogleAuthProvider.credential(withIDToken: m_IDToken, accessToken: m_Authentication.accessToken.tokenString)
-            self.firebaseSignIn(credential: m_GIDCredential)
+            self.firebaseSignIn(credential: m_GIDCredential, profileURL: gidResult?.user.profile?.imageURL(withDimension: 256))
         }
     }
     
     //---- MARK: Helper Methods
-    private func firebaseSignIn(credential: AuthCredential) {
+    private func firebaseSignIn(credential: AuthCredential, profileURL: URL?) {
         let m_GIDCredential: AuthCredential = credential
         Auth.auth().signIn(with: m_GIDCredential) { result, error in
             if error != nil {
@@ -81,6 +84,7 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
                             m_CurrentUser.setDisplayName(name: result!.user.displayName ?? "")
                             m_CurrentUser.setEmail(email: result?.user.email ?? "")
                             self.currentUser = m_CurrentUser
+                            BRUserDefaultManager.shared.currentUser = m_CurrentUser
                         }
                     )
                 }

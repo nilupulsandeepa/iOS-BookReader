@@ -18,6 +18,9 @@
 		5114B1BD2CB8FA7C005655A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BC2CB8FA7C005655A9 /* FirebaseDatabase */; };
 		5114B1BF2CB8FA7C005655A9 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BE2CB8FA7C005655A9 /* FirebaseRemoteConfig */; };
 		5114B1C12CB8FA7C005655A9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1C02CB8FA7C005655A9 /* FirebaseStorage */; };
+		513B74B82CBD96390054D978 /* BRBooksCollecttionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513B74B72CBD96390054D978 /* BRBooksCollecttionViewModel.swift */; };
+		513B74BA2CBD97D90054D978 /* BRBookStoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513B74B92CBD97D90054D978 /* BRBookStoreViewModel.swift */; };
+		513B74BC2CBD982B0054D978 /* BRBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513B74BB2CBD982A0054D978 /* BRBook.swift */; };
 		516A0CAE2CBBAEFE0026954E /* BRUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CAD2CBBAEFE0026954E /* BRUser.swift */; };
 		516A0CB12CBBB82B0026954E /* BRLocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CB02CBBB82B0026954E /* BRLocalStorageManager.swift */; };
 		516A0CB32CBBB83F0026954E /* BRNameSpaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CB22CBBB83F0026954E /* BRNameSpaces.swift */; };
@@ -49,6 +52,9 @@
 		5114B1AB2CB8F776005655A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5114B1AD2CB8F776005655A9 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5114B1B02CB8F776005655A9 /* bookreader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bookreader.xcdatamodel; sourceTree = "<group>"; };
+		513B74B72CBD96390054D978 /* BRBooksCollecttionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBooksCollecttionViewModel.swift; sourceTree = "<group>"; };
+		513B74B92CBD97D90054D978 /* BRBookStoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBookStoreViewModel.swift; sourceTree = "<group>"; };
+		513B74BB2CBD982A0054D978 /* BRBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBook.swift; sourceTree = "<group>"; };
 		516A0CAD2CBBAEFE0026954E /* BRUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRUser.swift; sourceTree = "<group>"; };
 		516A0CB02CBBB82B0026954E /* BRLocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRLocalStorageManager.swift; sourceTree = "<group>"; };
 		516A0CB22CBBB83F0026954E /* BRNameSpaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRNameSpaces.swift; sourceTree = "<group>"; };
@@ -139,6 +145,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		513B74B52CBD94F80054D978 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				513B74B72CBD96390054D978 /* BRBooksCollecttionViewModel.swift */,
+				513B74B92CBD97D90054D978 /* BRBookStoreViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		513B74B62CBD95100054D978 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				513B74BB2CBD982A0054D978 /* BRBook.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		516A0CAA2CBBAEC50026954E /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +228,8 @@
 		516BD1E72CBA47480009CA9C /* BookStore */ = {
 			isa = PBXGroup;
 			children = (
+				513B74B62CBD95100054D978 /* Model */,
+				513B74B52CBD94F80054D978 /* ViewModel */,
 				516BD1E82CBA475D0009CA9C /* View */,
 			);
 			path = BookStore;
@@ -380,6 +405,7 @@
 				516A0CB52CBBE1E50026954E /* BRError.swift in Sources */,
 				5114B1AE2CB8F776005655A9 /* Persistence.swift in Sources */,
 				5114B1B12CB8F776005655A9 /* bookreader.xcdatamodeld in Sources */,
+				513B74BA2CBD97D90054D978 /* BRBookStoreViewModel.swift in Sources */,
 				516BD1F92CBA7BC50009CA9C /* BRBookCollectionView.swift in Sources */,
 				516BD2012CBA9A850009CA9C /* BRFIRDatabaseManager.swift in Sources */,
 				516BD20E2CBADA060009CA9C /* BRFIRAuthenticationViewModel.swift in Sources */,
@@ -394,6 +420,8 @@
 				516A0CB32CBBB83F0026954E /* BRNameSpaces.swift in Sources */,
 				516BD1FD2CBA981B0009CA9C /* AppDelegate.swift in Sources */,
 				516BD1FB2CBA7EF50009CA9C /* BRBookThumbnailView.swift in Sources */,
+				513B74B82CBD96390054D978 /* BRBooksCollecttionViewModel.swift in Sources */,
+				513B74BC2CBD982B0054D978 /* BRBook.swift in Sources */,
 				516BD1F12CBA49CA0009CA9C /* BRSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,7 +481,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -510,7 +538,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -537,6 +565,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -567,6 +596,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+public struct BRNameSpaces {
+    public struct UserDefaultIndentifiers {
+        public static let currentUserKey: String = "com.bookreader.userdefaults.currentuserkey"
+    }
+}

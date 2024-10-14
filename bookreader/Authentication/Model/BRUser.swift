@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-public class BRUser {
+public class BRUser: Codable {
     private var g_AuthenticationID: String? = nil
     private var g_Email: String? = nil
     private var g_DisplayName: String? = nil
     private var g_ProfilePictureURL: String? = nil
-    public var profileImage: UIImage?
     
     //---- MARK: Action Methods
     public func setAuthenticationID(id: String) {
