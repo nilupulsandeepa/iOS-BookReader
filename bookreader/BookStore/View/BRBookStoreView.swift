@@ -10,7 +10,7 @@ import SwiftUI
 struct BRBookStoreView: View {
     
     @State private var text: String = ""
-    @State private var bookCollection = BRBooksCollecttionViewModel()
+    @StateObject private var booksStoreVM = BRBookStoreViewModel()
     
     var body: some View {
         VStack {
@@ -48,7 +48,7 @@ struct BRBookStoreView: View {
                 .padding([.leading, .trailing], 20)
                 .padding([.top], 15)
                 HStack {
-                    BRBookCollectionView(booksCollectionModel: bookCollection)
+                    BRBookCollectionView(bookCollection: booksStoreVM.recentBooks)
                 }
                 .padding([.top], -15)
                 HStack {

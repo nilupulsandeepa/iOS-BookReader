@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct BRBookThumbnailView: View {
-    @State private var g_ImageName: String = "book_1"
+    private var g_ImageName: String = "book_1"
+    private var g_Name: String = ""
     
-    init(thumbnailImageName: String) {
-        self.g_ImageName = g_ImageName
+    init(thumbnailImageName: String, bookName: String) {
+        self.g_ImageName = thumbnailImageName
+        self.g_Name = bookName
     }
     
     var body: some View {
@@ -19,12 +21,14 @@ struct BRBookThumbnailView: View {
             Image(g_ImageName)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 112)
-            Text("Tails Of The Last Night")
-                .frame(width: 150)
+                .frame(height: 150)
+                .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)), style: FillStyle())
+            Text(g_Name)
+                .frame(width: 150, height: 50)
                 .fontDesign(.rounded)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(Color(uiColor: UIColor(red: 64, green: 64, blue: 64)))
+                .padding([.leading, .trailing], 4)
         }
         .padding([.all], 4)
         .padding([.top, .bottom], 10)
@@ -33,5 +37,5 @@ struct BRBookThumbnailView: View {
 }
 
 #Preview {
-    BRBookThumbnailView(thumbnailImageName: "book_1")
+    BRBookThumbnailView(thumbnailImageName: "book_1", bookName: "Last Night Tails")
 }

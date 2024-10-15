@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct BRBookCollectionView: View {
-    let items = Array(1...15)
-        let rows = [
-            GridItem(.fixed(200))
-        ]
+    let rows = [
+        GridItem(.fixed(200))
+    ]
     
-    @State private var g_BooksCollection: BRBooksCollecttionViewModel
+    private var g_BooksCollection: [BRBook]
     
-    init(booksCollectionModel: BRBooksCollecttionViewModel) {
-        g_BooksCollection = booksCollectionModel
+    init(bookCollection: [BRBook]) {
+        g_BooksCollection = bookCollection
     }
         
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: rows, spacing: 20) {
-                ForEach(items, id: \.self) { item in
+                ForEach(g_BooksCollection, id: \.self) { item in
                     VStack {
-                        BRBookThumbnailView(thumbnailImageName: "book_2")
+                        BRBookThumbnailView(thumbnailImageName: "book_1", bookName: item.name)
                             .cornerRadius(10)
                             .shadow(color: Color(uiColor: UIColor(red: 64.0 / 255.0, green: 64.0 / 255.0, blue: 64.0 / 255.0, alpha: 0.15)), radius: 5)
                     }
@@ -36,6 +35,13 @@ struct BRBookCollectionView: View {
 }
 
 #Preview {
-    let booksCollection = BRBooksCollecttionViewModel()
-    return BRBookCollectionView(booksCollectionModel: booksCollection)
+    let booksCollection = BRBookStoreViewModel()
+    let books: [BRBook] = [
+        BRBook(g_ID: "A", g_Name: "Test Book 1"),
+        BRBook(g_ID: "B", g_Name: "Test Book 2"),
+        BRBook(g_ID: "C", g_Name: "Test Book 3"),
+        BRBook(g_ID: "D", g_Name: "Test Book 4"),
+    ]
+    booksCollection.recentBooks = books
+    return BRBookCollectionView(bookCollection: booksCollection.recentBooks)
 }

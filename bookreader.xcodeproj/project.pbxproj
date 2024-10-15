@@ -18,7 +18,6 @@
 		5114B1BD2CB8FA7C005655A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BC2CB8FA7C005655A9 /* FirebaseDatabase */; };
 		5114B1BF2CB8FA7C005655A9 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1BE2CB8FA7C005655A9 /* FirebaseRemoteConfig */; };
 		5114B1C12CB8FA7C005655A9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5114B1C02CB8FA7C005655A9 /* FirebaseStorage */; };
-		513B74B82CBD96390054D978 /* BRBooksCollecttionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513B74B72CBD96390054D978 /* BRBooksCollecttionViewModel.swift */; };
 		513B74BA2CBD97D90054D978 /* BRBookStoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513B74B92CBD97D90054D978 /* BRBookStoreViewModel.swift */; };
 		513B74BC2CBD982B0054D978 /* BRBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513B74BB2CBD982A0054D978 /* BRBook.swift */; };
 		516A0CAE2CBBAEFE0026954E /* BRUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516A0CAD2CBBAEFE0026954E /* BRUser.swift */; };
@@ -52,7 +51,6 @@
 		5114B1AB2CB8F776005655A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5114B1AD2CB8F776005655A9 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5114B1B02CB8F776005655A9 /* bookreader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bookreader.xcdatamodel; sourceTree = "<group>"; };
-		513B74B72CBD96390054D978 /* BRBooksCollecttionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBooksCollecttionViewModel.swift; sourceTree = "<group>"; };
 		513B74B92CBD97D90054D978 /* BRBookStoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBookStoreViewModel.swift; sourceTree = "<group>"; };
 		513B74BB2CBD982A0054D978 /* BRBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBook.swift; sourceTree = "<group>"; };
 		516A0CAD2CBBAEFE0026954E /* BRUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRUser.swift; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 		513B74B52CBD94F80054D978 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				513B74B72CBD96390054D978 /* BRBooksCollecttionViewModel.swift */,
 				513B74B92CBD97D90054D978 /* BRBookStoreViewModel.swift */,
 			);
 			path = ViewModel;
@@ -420,7 +417,6 @@
 				516A0CB32CBBB83F0026954E /* BRNameSpaces.swift in Sources */,
 				516BD1FD2CBA981B0009CA9C /* AppDelegate.swift in Sources */,
 				516BD1FB2CBA7EF50009CA9C /* BRBookThumbnailView.swift in Sources */,
-				513B74B82CBD96390054D978 /* BRBooksCollecttionViewModel.swift in Sources */,
 				513B74BC2CBD982B0054D978 /* BRBook.swift in Sources */,
 				516BD1F12CBA49CA0009CA9C /* BRSettingsView.swift in Sources */,
 			);

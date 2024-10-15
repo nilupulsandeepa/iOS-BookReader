@@ -8,5 +8,28 @@
 import Foundation
 
 public class BRBookStoreViewModel: ObservableObject {
+    //---- MARK: Properties
+    @Published public var recentBooks: [BRBook] = []
     
+    init() {
+        fetchRecentBookList()
+    }
+    
+    //---- MARK: Action Methods
+    
+    //---- MARK: Helper Methods
+    private func fetchRecentBookList() {
+        BRFIRDatabaseManager.shared.observeDataAtPathOnce(path: BRNameSpaces.FirebasePaths.recentBooks) {
+            [weak self]
+            snapshot in
+            let m_BooksObject: [String: Any] = snapshot.value as! [String: Any]
+            let m_RecentBooks: [BRBook] = m_BooksObject.values.map({
+                let m_BookData: Data = try! JSONSerialization.data(withJSONObject: $0)
+                return try! JSONDecoder().decode(BRBook.self, from: m_BookData)
+            })
+            if (self != nil) {
+                self!.recentBooks = m_RecentBooks
+            }
+        }
+    }
 }

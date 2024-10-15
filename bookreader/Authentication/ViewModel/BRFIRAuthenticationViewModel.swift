@@ -21,7 +21,10 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
         _ = Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
                 if (self.currentUser == nil) {
+                    print("Previous User Loaded")
                     self.currentUser = BRUserDefaultManager.shared.currentUser
+                } else {
+                    print("User Logged in")
                 }
             } else {
                 print("No User")
