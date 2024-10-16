@@ -64,12 +64,12 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
             }
             
             let m_GIDCredential: AuthCredential = GoogleAuthProvider.credential(withIDToken: m_IDToken, accessToken: m_Authentication.accessToken.tokenString)
-            self.firebaseSignIn(credential: m_GIDCredential, profileURL: gidResult?.user.profile?.imageURL(withDimension: 256))
+            self.firebaseSignIn(credential: m_GIDCredential)
         }
     }
     
     //---- MARK: Helper Methods
-    private func firebaseSignIn(credential: AuthCredential, profileURL: URL?) {
+    private func firebaseSignIn(credential: AuthCredential) {
         let m_GIDCredential: AuthCredential = credential
         Auth.auth().signIn(with: m_GIDCredential) { result, error in
             if error != nil {

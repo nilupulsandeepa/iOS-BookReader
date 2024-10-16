@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct BRBookThumbnailView: View {
-    private var g_ImageName: String = "book_1"
-    private var g_Name: String = ""
+    var g_ImageName: String = "book_1"
+    var book: BRBook
     
-    init(thumbnailImageName: String, bookName: String) {
-        self.g_ImageName = thumbnailImageName
-        self.g_Name = bookName
-    }
+    @ObservedObject var storeVM: BRBookStoreViewModel
+    @State private var isPressed = false
+    @Binding var isPresented: Bool
+    
+//    init(thumbnailImageName: String, bookName: String) {
+//        self.g_ImageName = thumbnailImageName
+//        self.g_Name = bookName
+//    }
     
     var body: some View {
         VStack {
@@ -23,7 +27,7 @@ struct BRBookThumbnailView: View {
                 .scaledToFit()
                 .frame(height: 150)
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)), style: FillStyle())
-            Text(g_Name)
+            Text(book.name)
                 .frame(width: 150, height: 50)
                 .fontDesign(.rounded)
                 .multilineTextAlignment(.center)
@@ -33,9 +37,25 @@ struct BRBookThumbnailView: View {
         .padding([.all], 4)
         .padding([.top, .bottom], 10)
         .background(Color(uiColor: UIColor(red: 241, green: 225, blue: 149)))
+        .scaleEffect(isPressed ? 0.95 : 1.0)
+        .animation(.bouncy(), value: isPressed)
+        .onTapGesture {
+            withAnimation {
+                isPressed = true
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                isPressed = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                    storeVM.selectedBook = book
+                    isPresented = true
+                    
+                })
+            }
+        }
     }
 }
 
-#Preview {
-    BRBookThumbnailView(thumbnailImageName: "book_1", bookName: "Last Night Tails")
-}
+//#Preview {
+//    BRBookThumbnailView(thumbnailImageName: "book_1", bookName: "Last Night Tails")
+//}

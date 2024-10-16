@@ -7,25 +7,17 @@
 
 import Foundation
 
-public struct BRBook: Hashable, Codable {
-    public var ID: String {
-        return g_ID
-    }
-    
-    public var name: String {
-        return g_Name
-    }
-    
-    private var g_ID: String = ""
-    private var g_Name: String = ""
+public struct BRBook: Hashable, Codable, Identifiable {
+    public var id: String = ""
+    public var name: String = ""
     
     enum CodingKeys: String, CodingKey {
-        case g_ID = "id"
-        case g_Name = "name"
+        case id = "id"
+        case name = "name"
     }
     
-    init(g_ID: String, g_Name: String) {
-        self.g_ID = g_ID
-        self.g_Name = g_Name
+    init(id: String, name: String) {
+        self.id = id
+        self.name = name
     }
 }

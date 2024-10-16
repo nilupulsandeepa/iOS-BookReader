@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import StoreKit
 
-public class BRBookStoreViewModel: ObservableObject {
+public class BRBookStoreViewModel: NSObject, ObservableObject {
     //---- MARK: Properties
     @Published public var recentBooks: [BRBook] = []
+    @Published public var selectedBook: BRBook? = nil
     
-    init() {
+    override init() {
+        super.init()
         fetchRecentBookList()
     }
     

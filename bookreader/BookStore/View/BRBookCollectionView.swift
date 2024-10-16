@@ -12,20 +12,19 @@ struct BRBookCollectionView: View {
         GridItem(.fixed(200))
     ]
     
-    private var g_BooksCollection: [BRBook]
-    
-    init(bookCollection: [BRBook]) {
-        g_BooksCollection = bookCollection
-    }
+    @ObservedObject var storeViewModel: BRBookStoreViewModel
+    @Binding var isPresented: Bool
         
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: rows, spacing: 20) {
-                ForEach(g_BooksCollection, id: \.self) { item in
+                ForEach(storeViewModel.recentBooks) { book in
                     VStack {
-                        BRBookThumbnailView(thumbnailImageName: "book_1", bookName: item.name)
-                            .cornerRadius(10)
-                            .shadow(color: Color(uiColor: UIColor(red: 64.0 / 255.0, green: 64.0 / 255.0, blue: 64.0 / 255.0, alpha: 0.15)), radius: 5)
+                        ZStack {
+                            BRBookThumbnailView(g_ImageName: "book_1", book: book, storeVM: storeViewModel, isPresented: $isPresented)
+                                .cornerRadius(10)
+                                .shadow(color: Color(uiColor: UIColor(red: 64.0 / 255.0, green: 64.0 / 255.0, blue: 64.0 / 255.0, alpha: 0.15)), radius: 5)
+                        }
                     }
                 }
             }
@@ -34,14 +33,14 @@ struct BRBookCollectionView: View {
     }
 }
 
-#Preview {
-    let booksCollection = BRBookStoreViewModel()
-    let books: [BRBook] = [
-        BRBook(g_ID: "A", g_Name: "Test Book 1"),
-        BRBook(g_ID: "B", g_Name: "Test Book 2"),
-        BRBook(g_ID: "C", g_Name: "Test Book 3"),
-        BRBook(g_ID: "D", g_Name: "Test Book 4"),
-    ]
-    booksCollection.recentBooks = books
-    return BRBookCollectionView(bookCollection: booksCollection.recentBooks)
-}
+//#Preview {
+//    let booksCollection = BRBookStoreViewModel()
+//    let books: [BRBook] = [
+//        BRBook(id: "A", name: "Test Book 1"),
+//        BRBook(id: "B", name: "Test Book 2"),
+//        BRBook(id: "C", name: "Test Book 3"),
+//        BRBook(id: "D", name: "Test Book 4"),
+//    ]
+//    booksCollection.recentBooks = books
+//    return BRBookCollectionView(storeViewModel: booksCollection)
+//}
