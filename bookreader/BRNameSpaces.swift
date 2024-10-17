@@ -14,5 +14,6 @@ public struct BRNameSpaces {
     
     public struct FirebasePaths {
         public static let recentBooks: String = "/recent_books"
+        public static let books: String = "/books"
     }
 }

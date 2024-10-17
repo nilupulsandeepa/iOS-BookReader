@@ -12,13 +12,9 @@ struct BRBookThumbnailView: View {
     var book: BRBook
     
     @ObservedObject var storeVM: BRBookStoreViewModel
-    @State private var isPressed = false
     @Binding var isPresented: Bool
     
-//    init(thumbnailImageName: String, bookName: String) {
-//        self.g_ImageName = thumbnailImageName
-//        self.g_Name = bookName
-//    }
+    @State private var isPressed = false
     
     var body: some View {
         VStack {
@@ -49,7 +45,6 @@ struct BRBookThumbnailView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
                     storeVM.selectedBook = book
                     isPresented = true
-                    
                 })
             }
         }
