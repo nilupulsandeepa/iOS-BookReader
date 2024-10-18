@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "Nilupul_Sandeepa_A_scary_girl_holding_a_red_stone_in_her_hand_in_a_7d9c9dca-9989-4ae4-bb49-be302569d0e7.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

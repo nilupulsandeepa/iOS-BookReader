@@ -16,7 +16,7 @@ struct BRNavigationView: View {
         // Customize the appearance of the Tab Bar
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
-        tabBarAppearance.backgroundColor = UIColor.white
+        tabBarAppearance.backgroundColor = UIColor.systemBackground
             
         UITabBar.appearance().standardAppearance = tabBarAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance

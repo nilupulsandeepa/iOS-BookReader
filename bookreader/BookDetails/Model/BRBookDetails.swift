@@ -11,4 +11,6 @@ public struct BRBookDetails: Hashable, Codable {
     public var id: String
     public var name: String
     public var description: String
+    public var authorId: String
+    public var authorName: String
 }

@@ -16,70 +16,130 @@ public class BRFIRDatabaseManager {
     
     init() {
         g_DBReference = Database.database().reference()
-        //        ref.child("/users/hhhhhh").getData(completion: {
-        //            err, snapshot in
-        //            var ss = snapshot!.value! as! [String: Any]
-        //            print(ss["rented_books"]! as! [String])
-        //        })
-        //        let books: [String] = [
-        //            "Echoes of Eternity",
-        //            "The Forgotten Chronicles",
-        //            "Whispers in the Dark",
-        //            "Shadows of the Lost City",
-        //            "The Celestial Code",
-        //            "Beneath the Starlit Sea",
-        //            "The Silent Prophecy",
-        //            "Fragments of a Broken World",
-        //            "The Enchanted Key",
-        //            "Legacy of the Firestone",
-        //            "The Winter’s Secret",
-        //            "Through the Veil",
-        //            "The Midnight Tapestry",
-        //            "Winds of Destiny",
-        //            "The Keeper's Dilemma",
-        //            "The Last Ember",
-        //            "Daughters of the Moonlight",
-        //            "The Crimson Crown",
-        //            "Sands of the Forgotten",
-        //            "Veil of Shadows",
-        //            "The Alchemist’s Curse",
-        //            "Beyond the Silver Horizon",
-        //            "Fates Entwined",
-        //            "The Obsidian Mirror",
-        //            "Waking the Serpent",
-        //            "Echoes from the Abyss",
-        //            "The Lantern's Glow",
-        //            "Threads of Fate",
-        //            "The Ghosts of Emberfall",
-        //            "Secrets of the Hollow Tree",
-        //            "The Dragon’s Tear",
-        //            "Realm of the Fallen",
-        //            "Beneath the Iron Sky",
-        //            "The Timekeeper’s Apprentice",
-        //            "Crown of Ash and Bone"
-        //        ]
-        //        let recent: [String] = [
-        //            "-O9-mNJolBCjdEXdTQWI",
-        //            "-O9-mNJolBCjdEXdTQWJ",
-        //            "-O9-mNJolBCjdEXdTQWK",
-        //            "-O9-mNJolBCjdEXdTQWL",
-        //            "-O9-mNJolBCjdEXdTQWM",
-        //            "-O9-mNJolBCjdEXdTQWN",
-        //            "-O9-mNJolBCjdEXdTQWO",
-        //            "-O9-mNJolBCjdEXdTQWP",
-        //            "-O9-mNJolBCjdEXdTQWQ",
-        //            "-O9-mNJolBCjdEXdTQWR",
-        //            "-O9-mNJolBCjdEXdTQWS",
-        //            "-O9-mNJolBCjdEXdTQWT",
-        //            "-O9-mNJolBCjdEXdTQWU",
-        //            "-O9-mNJpDX9hA96DXCps",
-        //            "-O9-mNJpDX9hA96DXCpt"
-        //        ]
-        //        for i in 0..<recent.count {
-        //            let ss = ref.child("/recent_books/\(recent[i])")
-        //            ss.setValue(["id": recent[i], "name": books[i]])
-        //        }
         
+        let authorsname = [
+            "Elara Wrenstone",
+            "Jaxon Hargrave",
+            "Lysandra Frost",
+            "Orion Blackwood",
+            "Celeste Ravensong",
+            "Theodore Ironhart",
+            "Vivienne Ashford",
+            "Ezra Nightshade",
+            "Adelaide Winterborne",
+            "Sebastian Dusk",
+            "Evander Silverthorn",
+            "Maris Hawke",
+            "Thalia Moonridge",
+            "Rowan Thornfield",
+            "Leona Wildfire",
+            "Finnian Stormrider",
+            "Dahlia Emberfall",
+            "Aric Stonebrook",
+            "Seraphine Graves",
+            "Caelan Swiftfoot",
+            "Isolde Farrow",
+            "Quinn Starling",
+            "Lucien Redgrave",
+            "Sienna Goldcrest",
+            "Jasper Darkmoor",
+            "Eleonora Crowe",
+            "Alaric Steelwind",
+            "Ivy Briarwood",
+            "Atticus Hollow",
+            "Malia Frostfire",
+            "Roderick Ravenshade",
+            "Selene Darkspear",
+            "Gideon Stormwall",
+            "Ophelia Glass",
+            "Victor Blackthorn",
+        ]
+        let books = [
+            "-O9-mNJolBCjdEXdTQWI",
+            "-O9-mNJolBCjdEXdTQWJ",
+            "-O9-mNJolBCjdEXdTQWK",
+            "-O9-mNJolBCjdEXdTQWL",
+            "-O9-mNJolBCjdEXdTQWM",
+            "-O9-mNJolBCjdEXdTQWN",
+            "-O9-mNJolBCjdEXdTQWO",
+            "-O9-mNJolBCjdEXdTQWP",
+            "-O9-mNJolBCjdEXdTQWQ",
+            "-O9-mNJolBCjdEXdTQWR",
+            "-O9-mNJolBCjdEXdTQWS",
+            "-O9-mNJolBCjdEXdTQWU",
+            "-O9-mNJolBCjdEXdTQWT",
+            "-O9-mNJpDX9hA96DXCps",
+            "-O9-mNJpDX9hA96DXCpt",
+            "-O9-mNJpDX9hA96DXCpu",
+            "-O9-mNJpDX9hA96DXCpv",
+            "-O9-mNJpDX9hA96DXCpw",
+            "-O9-mNJpDX9hA96DXCpx",
+            "-O9-mNJpDX9hA96DXCpy",
+            "-O9-mNJpDX9hA96DXCpz",
+            "-O9-mNJpDX9hA96DXCq-",
+            "-O9-mNJpDX9hA96DXCq0",
+            "-O9-mNJpDX9hA96DXCq1",
+            "-O9-mNJpDX9hA96DXCq2",
+            "-O9-mNJpDX9hA96DXCq3",
+            "-O9-mNJpDX9hA96DXCq4",
+            "-O9-mNJpDX9hA96DXCq5",
+            "-O9-mNJpDX9hA96DXCq6",
+            "-O9-mNJpDX9hA96DXCq7",
+            "-O9-mNJpDX9hA96DXCq8",
+            "-O9-mNJpDX9hA96DXCq9",
+            "-O9-mNJpDX9hA96DXCqA",
+            "-O9-mNJpDX9hA96DXCqB",
+            "-O9-mNJpDX9hA96DXCqC"
+        ]
+        let authors = [
+        "-O9SNnxbVr8XSdkeV0U1",
+        "-O9SNnxbVr8XSdkeV0U2",
+        "-O9SNnxbVr8XSdkeV0U3",
+        "-O9SNnxbVr8XSdkeV0U4",
+        "-O9SNnxbVr8XSdkeV0U5",
+        "-O9SNnxbVr8XSdkeV0U6",
+        "-O9SNnxbVr8XSdkeV0U7",
+        "-O9SNnxbVr8XSdkeV0U8",
+        "-O9SNnxbVr8XSdkeV0U9",
+        "-O9SNnxbVr8XSdkeV0UA",
+        "-O9SNnxbVr8XSdkeV0UB",
+        "-O9SNnxbVr8XSdkeV0UC",
+        "-O9SNnxbVr8XSdkeV0UD",
+        "-O9SNnxbVr8XSdkeV0UE",
+        "-O9SNnxbVr8XSdkeV0UF",
+        "-O9SNnxbVr8XSdkeV0UG",
+        "-O9SNnxbVr8XSdkeV0UH",
+        "-O9SNnxbVr8XSdkeV0UI",
+        "-O9SNnxbVr8XSdkeV0UJ",
+        "-O9SNnxbVr8XSdkeV0UK",
+        "-O9SNnxbVr8XSdkeV0UL",
+        "-O9SNnxbVr8XSdkeV0UM",
+        "-O9SNnxbVr8XSdkeV0UN",
+        "-O9SNnxcv4km8YAG4-yb",
+        "-O9SNnxcv4km8YAG4-yc",
+        "-O9SNnxcv4km8YAG4-yd",
+        "-O9SNnxcv4km8YAG4-ye",
+        "-O9SNnxcv4km8YAG4-yf",
+        "-O9SNnxcv4km8YAG4-yg",
+        "-O9SNnxcv4km8YAG4-yh",
+        "-O9SNnxcv4km8YAG4-yi",
+        "-O9SNnxcv4km8YAG4-yj",
+        "-O9SNnxcv4km8YAG4-yk",
+        "-O9SNnxcv4km8YAG4-yl",
+        "-O9SNnxcv4km8YAG4-ym"
+        ]
+//        for (i, book) in books.enumerated() {
+//            let child = g_DBReference.child("/books/\(book)")
+//            child.child("authorName").setValue(authorsname[i])
+//            child.child("authorId").setValue(authors[i])
+////            child.child("id").getData(completion: {
+////                (ss, err) in
+////                print(err!.value)
+////            })
+//        }
+    //        let child = g_DBReference.child("/books/\(books[11])")
+    //        child.child("authorName").setValue(authorsname[11])
+    //        child.child("authorId").setValue(authors[11])
     }
     
     //---- MARK: Action Methods

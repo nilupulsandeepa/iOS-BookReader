@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BRBookThumbnailView: View {
-    var g_ImageName: String = "book_1"
+    var g_ImageName: String = "book_2"
     var book: BRBook
     
     @ObservedObject var storeVM: BRBookStoreViewModel
@@ -33,16 +33,17 @@ struct BRBookThumbnailView: View {
         .padding([.all], 4)
         .padding([.top, .bottom], 10)
         .background(Color(uiColor: UIColor(red: 241, green: 225, blue: 149)))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .scaleEffect(isPressed ? 0.95 : 1.0)
-        .animation(.bouncy(), value: isPressed)
+        .animation(.easeInOut(duration: 0.15), value: isPressed)
         .onTapGesture {
             withAnimation {
                 isPressed = true
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                 isPressed = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
                     storeVM.selectedBook = book
                     isPresented = true
                 })

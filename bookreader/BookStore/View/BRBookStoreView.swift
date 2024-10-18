@@ -72,7 +72,9 @@ struct BRBookStoreView: View {
                 }
             }
             .navigationDestination(isPresented: $isBookPresented, destination: {
-                BRBookDetailsView(book: booksStoreVM.selectedBook)
+                if let m_SelectedBook = booksStoreVM.selectedBook {
+                    BRBookDetailsView(bookId: m_SelectedBook.id)
+                }
             })
         })
     }

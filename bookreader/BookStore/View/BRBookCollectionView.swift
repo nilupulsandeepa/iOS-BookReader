@@ -21,7 +21,7 @@ struct BRBookCollectionView: View {
                 ForEach(storeViewModel.recentBooks) { book in
                     VStack {
                         ZStack {
-                            BRBookThumbnailView(g_ImageName: "book_1", book: book, storeVM: storeViewModel, isPresented: $isPresented)
+                            BRBookThumbnailView(g_ImageName: "book_3", book: book, storeVM: storeViewModel, isPresented: $isPresented)
                                 .cornerRadius(10)
                                 .shadow(color: Color(uiColor: UIColor(red: 64.0 / 255.0, green: 64.0 / 255.0, blue: 64.0 / 255.0, alpha: 0.15)), radius: 5)
                         }
