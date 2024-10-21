@@ -101,7 +101,7 @@ struct BRBookDetailsView: View {
                 }
                 
                 HStack {
-                    Text("Rent the book:")
+                    Text("Rent this book:")
                         .font(.callout)
                         .fontWeight(.bold)
                         .padding([.top, .bottom], 5)

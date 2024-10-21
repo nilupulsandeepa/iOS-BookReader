@@ -50,6 +50,9 @@
             ReferencedContainer = "container:bookreader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../bookreader/InAppStore/bookreaderinapp.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

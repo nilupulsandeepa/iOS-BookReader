@@ -44,6 +44,7 @@
 		516BD2122CBAEB5E0009CA9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 516BD2112CBAEB5E0009CA9C /* GoogleService-Info.plist */; };
 		517A6A602CBF0C5B002938B2 /* bookreaderinapp.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 517A6A5F2CBF0C5B002938B2 /* bookreaderinapp.storekit */; };
 		519367FE2CC15E6200CA505F /* BRBookDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519367FD2CC15E6200CA505F /* BRBookDetailsViewModel.swift */; };
+		51AE107F2CC3F2300006A903 /* BRInAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AE107E2CC3F2300006A903 /* BRInAppManager.swift */; };
 		51E219E42CC1864300CED9A5 /* BRBookDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E219E32CC1864300CED9A5 /* BRBookDetails.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		516BD2112CBAEB5E0009CA9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		517A6A5F2CBF0C5B002938B2 /* bookreaderinapp.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = bookreaderinapp.storekit; sourceTree = "<group>"; };
 		519367FD2CC15E6200CA505F /* BRBookDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBookDetailsViewModel.swift; sourceTree = "<group>"; };
+		51AE107E2CC3F2300006A903 /* BRInAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRInAppManager.swift; sourceTree = "<group>"; };
 		51E219E32CC1864300CED9A5 /* BRBookDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBookDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -359,6 +361,7 @@
 			isa = PBXGroup;
 			children = (
 				517A6A5F2CBF0C5B002938B2 /* bookreaderinapp.storekit */,
+				51AE107E2CC3F2300006A903 /* BRInAppManager.swift */,
 			);
 			path = InAppStore;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				51E219E42CC1864300CED9A5 /* BRBookDetails.swift in Sources */,
 				516BD20E2CBADA060009CA9C /* BRFIRAuthenticationViewModel.swift in Sources */,
 				51221F792CBF7E4200D1D1CA /* BRBookDetailsView.swift in Sources */,
+				51AE107F2CC3F2300006A903 /* BRInAppManager.swift in Sources */,
 				516BD1E62CBA453C0009CA9C /* BRNavigationView.swift in Sources */,
 				516BD1F52CBA4D260009CA9C /* BRExtensions.swift in Sources */,
 				5114B1A72CB8F774005655A9 /* ContentView.swift in Sources */,
