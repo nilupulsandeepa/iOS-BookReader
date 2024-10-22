@@ -97,6 +97,11 @@ struct BRBookDetailsView: View {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                         isPressed = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
+                            Task {
+                                await BRInAppManager.shared.purchase(productId: BRNameSpaces.InAppConsumableProducts.inAppConsumableTier2)
+                            }
+                        })
                     }
                 }
                 

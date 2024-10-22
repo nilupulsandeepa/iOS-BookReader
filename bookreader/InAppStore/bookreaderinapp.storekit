@@ -27,7 +27,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.bookread.test.14dayretrial",
+      "productID" : "com.bookreader.test.14dayrental",
       "referenceName" : "14 Day Rental",
       "type" : "NonRenewingSubscription"
     }

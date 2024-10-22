@@ -12,8 +12,10 @@ import GoogleSignIn
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
-        
-        BRInAppManager.shared.loadInAppProducts()
+        Task {
+            await BRInAppManager.shared.loadInAppProducts()
+            BRInAppManager.shared.listenForTransactions()
+        }
         return true
     }
     

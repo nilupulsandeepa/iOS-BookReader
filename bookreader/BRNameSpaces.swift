@@ -18,13 +18,18 @@ public struct BRNameSpaces {
     }
     
     public struct InAppNonRenewableSubscriptionProducts {
-        public static let inApp7DaysRent = "com.bookreader.test.7dayrental"
-        public static let inApp14DaysRent = "com.bookreader.test.7dayrental"
+        public static let inApp7DaysRent: String = "com.bookreader.test.7dayrental"
+        public static let inApp14DaysRent: String = "com.bookreader.test.14dayrental"
     }
     
-    public struct InAppNonConsumableProducts {
-        public static let inAppConsumableTier1 = "com.bookreader.test.booktier1"
-        public static let inAppConsumableTier2 = "com.bookreader.test.booktier2"
-        public static let inAppConsumableTier3 = "com.bookreader.test.booktier3"
+    public struct InAppConsumableProducts {
+        public static let inAppConsumableTier1: String = "com.bookreader.test.booktier1"
+        public static let inAppConsumableTier2: String = "com.bookreader.test.booktier2"
+        public static let inAppConsumableTier3: String = "com.bookreader.test.booktier3"
+    }
+    
+    public struct NotificationIdentifiers {
+        public static let purchaseSuccessNotification: String = "com.bookreader.notification.purchasesuccess"
+        public static let purchaseFailedNotification: String = "com.bookreader.notification.purchasefailed"
     }
 }

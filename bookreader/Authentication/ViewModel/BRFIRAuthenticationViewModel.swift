@@ -78,18 +78,20 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
             } else {
                 if let m_ProfileImageURL: URL = result?.user.photoURL {
                     self.saveProfilePicture(url: m_ProfileImageURL, completion: {
+                        [unowned self]
                         (savedURL, errorFileSave) in
-                            let m_CurrentUser: BRUser = BRUser()
-                            if (errorFileSave == nil) {
-                                m_CurrentUser.setProfilePictureURL(path: savedURL!)
-                            }
-                            m_CurrentUser.setAuthenticationID(id: result!.user.uid)
-                            m_CurrentUser.setDisplayName(name: result!.user.displayName ?? "")
-                            m_CurrentUser.setEmail(email: result?.user.email ?? "")
-                            self.currentUser = m_CurrentUser
-                            BRUserDefaultManager.shared.currentUser = m_CurrentUser
+                        
+                        let m_CurrentUser: BRUser = BRUser()
+                        if (errorFileSave == nil) {
+                            m_CurrentUser.setProfilePictureURL(path: savedURL!)
                         }
-                    )
+                        m_CurrentUser.setAuthenticationID(id: result!.user.uid)
+                        m_CurrentUser.setDisplayName(name: result!.user.displayName ?? "")
+                        m_CurrentUser.setEmail(email: result?.user.email ?? "")
+                        self.currentUser = m_CurrentUser
+                        BRUserDefaultManager.shared.currentUser = m_CurrentUser
+                        self.saveLoggedInUserInFirebase()
+                    })
                 }
                 
             }
@@ -133,5 +135,21 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
             }
         }
         m_RequestTask.resume()
+    }
+    
+    private func saveLoggedInUserInFirebase() {
+        let m_CurrentUser = BRUserDefaultManager.shared.currentUser!
+        let m_Path: String = "/users/\(m_CurrentUser.getAuthenticationID()!)"
+        let m_Value: [String: Any] = [
+            "id": m_CurrentUser.getAuthenticationID()!,
+            "email": m_CurrentUser.getEmail()!,
+            "name": m_CurrentUser.getDisplayName()!,
+            "rented_books": [
+                "22222": ["book_id": "22222", "rented_timestamp": "324234234", "isExpired": false],
+                "3333333": ["book_id": "3333333", "rented_timestamp": "324234234", "isExpired": true]]
+        ]
+        BRFIRDatabaseManager.shared.setValueAtPath(path: m_Path, value: m_Value) {
+            print("Done...")
+        }
     }
 }
