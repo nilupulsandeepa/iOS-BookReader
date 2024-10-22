@@ -14,11 +14,11 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
     //---- MARK: Properties
     @Published var currentUser: BRUser? = nil
     
-    
-    
     //---- MARK: Initialization
     init() {
-        _ = Auth.auth().addStateDidChangeListener { auth, user in
+        _ = Auth.auth().addStateDidChangeListener {
+            [unowned self]
+            auth, user in
             if user != nil {
                 if (self.currentUser == nil) {
                     print("Previous User Loaded")
@@ -51,6 +51,7 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
         }
         
         GIDSignIn.sharedInstance.signIn(withPresenting: m_RootViewController) {
+            [unowned self]
             (gidResult, error) in
             
             if error != nil {
@@ -71,7 +72,9 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
     //---- MARK: Helper Methods
     private func firebaseSignIn(credential: AuthCredential) {
         let m_GIDCredential: AuthCredential = credential
-        Auth.auth().signIn(with: m_GIDCredential) { result, error in
+        Auth.auth().signIn(with: m_GIDCredential) {
+            [unowned self]
+            result, error in
             if error != nil {
                 // Handle Error
                 return
@@ -83,14 +86,12 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
                         
                         let m_CurrentUser: BRUser = BRUser()
                         if (errorFileSave == nil) {
-                            m_CurrentUser.setProfilePictureURL(path: savedURL!)
+                            m_CurrentUser.profilePictureURL = savedURL
                         }
-                        m_CurrentUser.setAuthenticationID(id: result!.user.uid)
-                        m_CurrentUser.setDisplayName(name: result!.user.displayName ?? "")
-                        m_CurrentUser.setEmail(email: result?.user.email ?? "")
-                        self.currentUser = m_CurrentUser
-                        BRUserDefaultManager.shared.currentUser = m_CurrentUser
-                        self.saveLoggedInUserInFirebase()
+                        m_CurrentUser.id = result!.user.uid
+                        m_CurrentUser.name = result!.user.displayName ?? ""
+                        m_CurrentUser.email = result?.user.email ?? ""
+                        self.saveLoggedInUserInFirebase(user: m_CurrentUser)
                     })
                 }
                 
@@ -137,19 +138,30 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
         m_RequestTask.resume()
     }
     
-    private func saveLoggedInUserInFirebase() {
-        let m_CurrentUser = BRUserDefaultManager.shared.currentUser!
-        let m_Path: String = "/users/\(m_CurrentUser.getAuthenticationID()!)"
+    private func saveLoggedInUserInFirebase(user: BRUser) {        
+        let m_CurrentUser = user
+        let m_Path: String = "/users/\(m_CurrentUser.id!)"
         let m_Value: [String: Any] = [
-            "id": m_CurrentUser.getAuthenticationID()!,
-            "email": m_CurrentUser.getEmail()!,
-            "name": m_CurrentUser.getDisplayName()!,
-            "rented_books": [
-                "22222": ["book_id": "22222", "rented_timestamp": "324234234", "isExpired": false],
-                "3333333": ["book_id": "3333333", "rented_timestamp": "324234234", "isExpired": true]]
+            "id": m_CurrentUser.id!,
+            "email": m_CurrentUser.email!,
+            "name": m_CurrentUser.name!
         ]
-        BRFIRDatabaseManager.shared.setValueAtPath(path: m_Path, value: m_Value) {
-            print("Done...")
-        }
+        
+        BRFIRDatabaseManager.shared.observeDataAtPathOnce(path: m_Path, completion: {
+            [unowned self]
+            (snapshot) in
+            if let m_AlreadyLoggedInUser = snapshot.value as? [String: Any],
+               let m_DbUserData: Data = try? JSONSerialization.data(withJSONObject: m_AlreadyLoggedInUser),
+               let m_DbUser: BRUser = try? JSONDecoder().decode(BRUser.self, from: m_DbUserData) {
+                m_DbUser.profilePictureURL = m_CurrentUser.profilePictureURL
+                self.currentUser = m_DbUser
+                BRUserDefaultManager.shared.currentUser = m_DbUser
+            } else {
+                BRFIRDatabaseManager.shared.setValueAtPath(path: m_Path, value: m_Value) {
+                    //Notify user added
+                    self.currentUser = m_CurrentUser
+                }
+            }
+        })
     }
 }

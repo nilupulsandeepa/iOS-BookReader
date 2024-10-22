@@ -36,10 +36,19 @@ public class BRLocalStorageManager {
             
             g_FileManager!.createFile(atPath: m_FinalURL.path(), contents: fileData)
             
-            return m_FinalURL.path()
+            return "/\(folderName)/\(fileName)"
         }
         return ""
     }
+    
+    public func getFileDataInLocalStorage(filePath: String) -> Data? {
+        if let m_DocPath: URL = g_FileManager?.urls(for: .documentDirectory, in: .userDomainMask)[0] {
+            let m_ProfileImgPath: URL = m_DocPath.appending(path: filePath)
+            return FileManager.default.contents(atPath: m_ProfileImgPath.path())
+        }
+        return nil
+    }
+    
     //---- MARK: Helper Methods
     
 }

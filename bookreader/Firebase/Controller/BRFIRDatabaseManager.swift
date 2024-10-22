@@ -153,7 +153,6 @@ public class BRFIRDatabaseManager {
     public func setValueAtPath(path: String, value: Any?, completion: @escaping () -> Void) {
         g_DBReference.child(path).setValue(value) {
             (error, dbRef) in
-            print(error?.localizedDescription)
             completion()
         }
     }

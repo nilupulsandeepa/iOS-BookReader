@@ -8,41 +8,33 @@
 import SwiftUI
 
 public class BRUser: Codable {
-    private var g_AuthenticationID: String? = nil
-    private var g_Email: String? = nil
-    private var g_DisplayName: String? = nil
-    private var g_ProfilePictureURL: String? = nil
+    public var email: String!
+    public var id: String!
+    public var name: String!
+    public var rentedBooks: [String: BRUserBookRecord]?
+    public var purchasedBooks: [String: BRUserBookRecord]?
     
-    //---- MARK: Action Methods
-    public func setAuthenticationID(id: String) {
-        g_AuthenticationID = id
+    //---- Non key
+    public var profilePictureURL: String?
+        
+    enum CodingKeys: String, CodingKey {
+        case email = "email"
+        case id = "id"
+        case name = "name"
+        case rentedBooks = "rented_books"
+        case purchasedBooks = "purchased_books"
+        case profilePictureURL = "profile_picture_Url"
     }
+}
+
+public class BRUserBookRecord: Codable {
+    public var bookId: String!
+    public var isExpired: Bool!
+    public var rentedTimestamp: Int!
     
-    public func setEmail(email: String) {
-        g_Email = email
-    }
-    
-    public func setDisplayName(name: String) {
-        g_DisplayName = name
-    }
-    
-    public func setProfilePictureURL(path: String) {
-        g_ProfilePictureURL = path
-    }
-    
-    public func getAuthenticationID() -> String? {
-        return g_AuthenticationID
-    }
-    
-    public func getEmail() -> String? {
-        return g_Email
-    }
-    
-    public func getDisplayName() -> String? {
-        return g_DisplayName
-    }
-    
-    public func getProfilePictureURL() -> String? {
-        return g_ProfilePictureURL
+    enum CodingKeys: String, CodingKey {
+        case bookId = "book_id"
+        case isExpired = "isExpired"
+        case rentedTimestamp = "rented_timestamp"
     }
 }
