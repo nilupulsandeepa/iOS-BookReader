@@ -12,7 +12,7 @@ import GoogleSignIn
 
 public class BRFIRAuthenticationViewModel: ObservableObject {
     //---- MARK: Properties
-    @Published var currentUser: BRUser? = nil
+    //@Published var currentUser: BRUser? = nil
     
     //---- MARK: Initialization
     init() {
@@ -20,26 +20,17 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
             [unowned self]
             auth, user in
             if user != nil {
-                if (self.currentUser == nil) {
-                    print("Previous User Loaded")
-                    self.currentUser = BRUserDefaultManager.shared.currentUser
-                } else {
-                    print("User Logged in")
-                }
+                print("Have User")
             } else {
                 print("No User")
                 BRUserDefaultManager.shared.currentUser = nil
-                self.currentUser = nil
             }
+            notifyUserChanges()
         }
     }
     
     //---- MARK: Action Methods
     public func startGoogleSignIn() {
-        if (self.currentUser != nil) {
-            try? Auth.auth().signOut()
-            return
-        }
         guard let m_WindowScene: UIWindowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
             // Handle Error
             return
@@ -67,6 +58,10 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
             let m_GIDCredential: AuthCredential = GoogleAuthProvider.credential(withIDToken: m_IDToken, accessToken: m_Authentication.accessToken.tokenString)
             self.firebaseSignIn(credential: m_GIDCredential)
         }
+    }
+    
+    public func logOut() {
+        try? Auth.auth().signOut()
     }
     
     //---- MARK: Helper Methods
@@ -154,14 +149,22 @@ public class BRFIRAuthenticationViewModel: ObservableObject {
                let m_DbUserData: Data = try? JSONSerialization.data(withJSONObject: m_AlreadyLoggedInUser),
                let m_DbUser: BRUser = try? JSONDecoder().decode(BRUser.self, from: m_DbUserData) {
                 m_DbUser.profilePictureURL = m_CurrentUser.profilePictureURL
-                self.currentUser = m_DbUser
                 BRUserDefaultManager.shared.currentUser = m_DbUser
             } else {
                 BRFIRDatabaseManager.shared.setValueAtPath(path: m_Path, value: m_Value) {
                     //Notify user added
-                    self.currentUser = m_CurrentUser
+                    BRUserDefaultManager.shared.currentUser = m_CurrentUser
                 }
             }
+            notifyUserChanges()
         })
+    }
+    
+    private func notifyUserChanges() {
+        NotificationCenter.default.post(
+            name: NSNotification.Name(rawValue: BRNameSpaces.NotificationIdentifiers.sessionUserUpdated),
+            object: nil,
+            userInfo: ["newUser": BRUserDefaultManager.shared.currentUser as Any]
+        )
     }
 }

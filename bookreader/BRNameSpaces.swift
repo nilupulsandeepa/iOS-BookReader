@@ -31,5 +31,8 @@ public struct BRNameSpaces {
     public struct NotificationIdentifiers {
         public static let purchaseSuccessNotification: String = "com.bookreader.notification.purchasesuccess"
         public static let purchaseFailedNotification: String = "com.bookreader.notification.purchasefailed"
+        
+        public static let sessionUserUpdated: String = "com.bookreader.notification.sessionuserupdated"
+        public static let sessionUserPurchasedBook: String = "com.bookreader.notification.sessionUserPurchasedBook"
     }
 }

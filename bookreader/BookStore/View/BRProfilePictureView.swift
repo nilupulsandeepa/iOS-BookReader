@@ -9,14 +9,11 @@ import SwiftUI
 
 struct BRProfilePictureView: View {
     
-    @ObservedObject private var g_AuthViewModel: BRFIRAuthenticationViewModel
-    
-    init(g_AuthViewModel: BRFIRAuthenticationViewModel) {
-        self.g_AuthViewModel = g_AuthViewModel
-    }
+    @EnvironmentObject var appAuthentication: BRFIRAuthenticationViewModel
+    @EnvironmentObject var appAuthSession: BRSessionViewModel
     
     var body: some View {
-        if let m_CurrentUser: BRUser = g_AuthViewModel.currentUser {
+        if let m_CurrentUser: BRUser = appAuthSession.currentUser {
             let m_ProfileImgData: Data = BRLocalStorageManager.shared.getFileDataInLocalStorage(filePath: m_CurrentUser.profilePictureURL!)!
             Image(uiImage: UIImage(data: m_ProfileImgData)!)
                 .resizable()
@@ -30,7 +27,7 @@ struct BRProfilePictureView: View {
                 .shadow(radius: 5)
                 .padding([.bottom], 5)
                 .onTapGesture {
-                    g_AuthViewModel.startGoogleSignIn()
+                    appAuthentication.logOut()
                 }
         } else {
             Image(systemName: "person.fill")
@@ -46,13 +43,12 @@ struct BRProfilePictureView: View {
                 .shadow(radius: 5)
                 .padding([.bottom], 5)
                 .onTapGesture {
-                    g_AuthViewModel.startGoogleSignIn()
+                    appAuthentication.startGoogleSignIn()
                 }
         }
     }
 }
 
 #Preview {
-    
-    BRProfilePictureView(g_AuthViewModel: BRFIRAuthenticationViewModel())
+    BRProfilePictureView()
 }

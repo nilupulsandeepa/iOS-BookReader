@@ -32,15 +32,3 @@ struct BRBookCollectionView: View {
         }
     }
 }
-
-//#Preview {
-//    let booksCollection = BRBookStoreViewModel()
-//    let books: [BRBook] = [
-//        BRBook(id: "A", name: "Test Book 1"),
-//        BRBook(id: "B", name: "Test Book 2"),
-//        BRBook(id: "C", name: "Test Book 3"),
-//        BRBook(id: "D", name: "Test Book 4"),
-//    ]
-//    booksCollection.recentBooks = books
-//    return BRBookCollectionView(storeViewModel: booksCollection)
-//}

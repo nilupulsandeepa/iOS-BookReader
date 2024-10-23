@@ -46,6 +46,7 @@
 		519367FE2CC15E6200CA505F /* BRBookDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519367FD2CC15E6200CA505F /* BRBookDetailsViewModel.swift */; };
 		51AE107F2CC3F2300006A903 /* BRInAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AE107E2CC3F2300006A903 /* BRInAppManager.swift */; };
 		51E219E42CC1864300CED9A5 /* BRBookDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E219E32CC1864300CED9A5 /* BRBookDetails.swift */; };
+		51ED079C2CC905E600D8014F /* BRSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51ED079B2CC905E600D8014F /* BRSessionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		519367FD2CC15E6200CA505F /* BRBookDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBookDetailsViewModel.swift; sourceTree = "<group>"; };
 		51AE107E2CC3F2300006A903 /* BRInAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRInAppManager.swift; sourceTree = "<group>"; };
 		51E219E32CC1864300CED9A5 /* BRBookDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRBookDetails.swift; sourceTree = "<group>"; };
+		51ED079B2CC905E600D8014F /* BRSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BRSessionViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 		51221F742CBF7DFF00D1D1CA /* BookDetails */ = {
 			isa = PBXGroup;
 			children = (
+				51ED07992CC905B300D8014F /* Session */,
 				51221F772CBF7E2400D1D1CA /* ViewModel */,
 				51221F762CBF7E1F00D1D1CA /* View */,
 				51221F752CBF7E1500D1D1CA /* Model */,
@@ -366,6 +369,22 @@
 			path = InAppStore;
 			sourceTree = "<group>";
 		};
+		51ED07992CC905B300D8014F /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				51ED079A2CC905B800D8014F /* ViewModel */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		51ED079A2CC905B800D8014F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				51ED079B2CC905E600D8014F /* BRSessionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -463,6 +482,7 @@
 				516BD2012CBA9A850009CA9C /* BRFIRDatabaseManager.swift in Sources */,
 				51E219E42CC1864300CED9A5 /* BRBookDetails.swift in Sources */,
 				516BD20E2CBADA060009CA9C /* BRFIRAuthenticationViewModel.swift in Sources */,
+				51ED079C2CC905E600D8014F /* BRSessionViewModel.swift in Sources */,
 				51221F792CBF7E4200D1D1CA /* BRBookDetailsView.swift in Sources */,
 				51AE107F2CC3F2300006A903 /* BRInAppManager.swift in Sources */,
 				516BD1E62CBA453C0009CA9C /* BRNavigationView.swift in Sources */,

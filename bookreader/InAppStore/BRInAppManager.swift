@@ -53,7 +53,9 @@ public class BRInAppManager {
                 case .verified(let transaction):
                     await transaction.finish()
                     print("Purchase Success")
+                    purchaseSuccess(productId: g_AllInAppProducts[productId]!)
                 default:
+                    purchaseFailed()
                     print("Error")
                 }
             default:

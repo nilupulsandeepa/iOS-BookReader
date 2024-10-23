@@ -11,7 +11,6 @@ struct BRBookStoreView: View {
     
     @State private var text: String = ""
     @StateObject var booksStoreVM = BRBookStoreViewModel()
-    @StateObject var authenticationVM = BRFIRAuthenticationViewModel()
     @State var isBookPresented: Bool = false
     
     var body: some View {
@@ -24,7 +23,7 @@ struct BRBookStoreView: View {
                         .padding([.bottom], 5)
                         .foregroundStyle(Color(uiColor: UIColor(red: 64, green: 64, blue: 64)))
                     Spacer()
-                    BRProfilePictureView(g_AuthViewModel: authenticationVM)
+                    BRProfilePictureView()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.top, .leading, .trailing], 20)
@@ -73,7 +72,7 @@ struct BRBookStoreView: View {
             }
             .navigationDestination(isPresented: $isBookPresented, destination: {
                 if let m_SelectedBook = booksStoreVM.selectedBook {
-                    BRBookDetailsView(bookId: m_SelectedBook.id)
+                    BRBookDetailsView(bookStoreViewMode: booksStoreVM)
                 }
             })
         })

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct BRBookDetailsView: View {
     
+    @ObservedObject var bookStoreViewMode: BRBookStoreViewModel
     @StateObject var g_BookDetailsViewModel: BRBookDetailsViewModel = BRBookDetailsViewModel()
-    public var bookId: String? = nil
     
     @State private var isPressed = false
     @State private var is7DaysRentPressed = false
@@ -98,6 +98,7 @@ struct BRBookDetailsView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                         isPressed = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
+                            bookStoreViewMode.currentPurchasingBook = bookStoreViewMode.selectedBook
                             Task {
                                 await BRInAppManager.shared.purchase(productId: BRNameSpaces.InAppConsumableProducts.inAppConsumableTier2)
                             }
@@ -187,15 +188,15 @@ struct BRBookDetailsView: View {
             }
         }
         .onAppear {
-            if let m_BookId = bookId {
+            if let m_BookId = bookStoreViewMode.selectedBook?.id {
                 g_BookDetailsViewModel.loadBookDetails(bookId: m_BookId)
             }
         }
+        .onDisappear(perform: {
+            bookStoreViewMode.selectedBook = nil
+            bookStoreViewMode.currentPurchasingBook = nil
+        })
         .navigationTitle("Book Details")
     }
-}
-
-#Preview {
-    BRBookDetailsView(bookId: "-O9-mNJolBCjdEXdTQWI")
 }
 
