@@ -27,8 +27,10 @@ public class LocalCoreDataManager {
             let newBook: DBBook = DBBook(context: managedContext)
             newBook.id = book.id
             newBook.name = book.name
-            newBook.author = "New Author"
-            newBook.author_id = "sadf234"
+            newBook.authorName = book.authorName
+            newBook.authorId = book.authorId
+            newBook.progress = 0
+            newBook.isCloudSynced = false
             
             do {
                 try managedContext.save()
@@ -38,17 +40,36 @@ public class LocalCoreDataManager {
         }
     }
     
-    public func fetchBooks() {
+    public func fetchPurchasedBooks() -> [Book] {
         let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()
-        
-        fetchRequest.predicate = NSPredicate(format: "id == %@", "-O9-mNJpDX9hA96DXCpt")
         
         do {
             if let books = try managedContext?.fetch(fetchRequest) {
-                for book in books {
-                    print("Book: \(book.id)")
-                    print("Book Name: \(book.name)")
+                return books.map {
+                    var convertedBook = Book(id: $0.id!, name: $0.name!)
+                    convertedBook.authorId = $0.authorId
+                    convertedBook.authorName = $0.authorName
+                    convertedBook.isCloudSynced = $0.isCloudSynced
+                    convertedBook.progress = Int($0.progress)
+                    return convertedBook
                 }
+            }
+        } catch {
+            
+        }
+        return []
+    }
+    
+    public func updatePurchasedBook(book: Book) {
+        let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %@", book.id)
+        
+        do {
+            if let books = try managedContext?.fetch(fetchRequest) {
+                books[0].isCloudSynced = book.isCloudSynced!
+                books[0].progress = Int16(book.progress!)
+                
+                try managedContext?.save()
             }
         } catch {
             

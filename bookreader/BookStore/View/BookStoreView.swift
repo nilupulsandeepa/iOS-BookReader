@@ -83,7 +83,7 @@ struct BookStoreView: View {
             }
             .navigationDestination(isPresented: $isBookPresented, destination: {
                 if let selectedBook = booksStoreVM.selectedBook {
-                    BookDetailsView(bookStoreViewMode: booksStoreVM)
+                    BookDetailsView(bookStoreViewModel: booksStoreVM)
                 }
             })
         })

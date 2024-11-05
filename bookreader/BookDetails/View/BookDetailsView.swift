@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookDetailsView: View {
     
-    @ObservedObject var bookStoreViewMode: BookStoreViewModel
+    @ObservedObject var bookStoreViewModel: BookStoreViewModel
     @StateObject var bookDetailsViewModel: BookDetailsViewModel = BookDetailsViewModel()
     
     @State private var isPressed = false
@@ -98,7 +98,12 @@ struct BookDetailsView: View {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                         isPressed = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
-                            bookStoreViewMode.currentPurchasingBook = bookStoreViewMode.selectedBook
+                            bookStoreViewModel.currentPurchasingBook = bookStoreViewModel.selectedBook
+                            bookStoreViewModel.currentPurchasingBook!.authorId = bookDetailsViewModel.bookDetails?.authorId
+                            bookStoreViewModel.currentPurchasingBook!.authorName = bookDetailsViewModel.bookDetails?.authorName
+                            bookStoreViewModel.currentPurchasingBook!.progress = 0
+                            bookStoreViewModel.currentPurchasingBook!.isCloudSynced = false
+                            
                             InAppManager.shared.purchase(productId: NameSpaces.InAppConsumableProducts.inAppConsumableTier2)
                         })
                     }
@@ -147,7 +152,10 @@ struct BookDetailsView: View {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                             is7DaysRentPressed = false
-                            LocalCoreDataManager.shared.fetchBooks()
+                            let books: [Book] = LocalCoreDataManager.shared.fetchPurchasedBooks()
+                            for book in books {
+                                print(book)
+                            }
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -187,7 +195,7 @@ struct BookDetailsView: View {
             }
         }
         .onAppear {
-            if let bookId = bookStoreViewMode.selectedBook?.id {
+            if let bookId = bookStoreViewModel.selectedBook?.id {
                 bookDetailsViewModel.loadBookDetails(bookId: bookId)
             }
         }

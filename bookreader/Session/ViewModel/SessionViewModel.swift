@@ -39,10 +39,13 @@ public class SessionViewModel: ObservableObject {
             "rented_timestamp": Int(Date().timeIntervalSince1970)
         ]
         let path: String = "/users/\(userId)/purchased_books/\(bookId)"
-//        PersistenceController.shared.container.
-        FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo, completion: {
+        FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo) {
+            var updatedBook: Book = Book(id: bookId, name: "")
+            updatedBook.isCloudSynced = true
+            updatedBook.progress = 0
+            LocalCoreDataManager.shared.updatePurchasedBook(book: updatedBook)
             print("Added Purchased Book")
-        })
+        }
     }
     
     @objc private func sessionUserUpdated(notification: Notification) {

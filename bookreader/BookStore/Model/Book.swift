@@ -10,6 +10,10 @@ import Foundation
 public struct Book: Hashable, Codable, Identifiable {
     public var id: String = ""
     public var name: String = ""
+    public var authorId: String? = nil
+    public var authorName: String? = nil
+    public var progress: Int? = nil
+    public var isCloudSynced: Bool? = nil
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
