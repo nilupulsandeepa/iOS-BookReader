@@ -13,8 +13,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         Task {
-            await BRInAppManager.shared.loadInAppProducts()
-            BRInAppManager.shared.listenForTransactions()
+            await InAppManager.shared.loadInAppProducts()
+            InAppManager.shared.listenForTransactions()
         }
         return true
     }

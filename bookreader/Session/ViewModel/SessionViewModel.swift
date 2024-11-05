@@ -1,5 +1,5 @@
 //
-//  BRSessionViewModel.swift
+//  SessionViewModel.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-23.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-public class BRSessionViewModel: ObservableObject {
-    @Published public var currentUser: BRUser? = nil
+public class SessionViewModel: ObservableObject {
+    @Published public var currentUser: User? = nil
     
     init() {
         registerNotification()
@@ -19,34 +19,35 @@ public class BRSessionViewModel: ObservableObject {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(sessionUserUpdated(notification:)),
-            name: NSNotification.Name(rawValue: BRNameSpaces.NotificationIdentifiers.sessionUserUpdated),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdated),
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(sessionUserPurchasedBook(notification:)),
-            name: NSNotification.Name(rawValue: BRNameSpaces.NotificationIdentifiers.sessionUserPurchasedBook),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook),
             object: nil
         )
     }
     
     private func handleBookPurchase(bookId: String) {
-        let m_UserId: String = currentUser!.id
-        let m_BookInfo: [String: Any] = [
+        let userId: String = currentUser!.id
+        let bookInfo: [String: Any] = [
             "book_id": bookId,
             "isExpired": false,
             "rented_timestamp": Int(Date().timeIntervalSince1970)
         ]
-        let m_Path: String = "/users/\(m_UserId)/purchased_books/\(bookId)"
-        BRFIRDatabaseManager.shared.setValueAtPath(path: m_Path, value: m_BookInfo, completion: {
+        let path: String = "/users/\(userId)/purchased_books/\(bookId)"
+//        PersistenceController.shared.container.
+        FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo, completion: {
             print("Added Purchased Book")
         })
     }
     
     @objc private func sessionUserUpdated(notification: Notification) {
-        let m_Data: [AnyHashable: Any] = notification.userInfo!
-        var m_NewUser: BRUser? = m_Data["newUser"] as? BRUser
+        let data: [AnyHashable: Any] = notification.userInfo!
+        var m_NewUser: User? = data["newUser"] as? User
         currentUser = m_NewUser
     }
     
@@ -56,7 +57,7 @@ public class BRSessionViewModel: ObservableObject {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: BRNameSpaces.NotificationIdentifiers.sessionUserUpdated), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: BRNameSpaces.NotificationIdentifiers.sessionUserPurchasedBook), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdated), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook), object: nil)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  BRUser.swift
+//  User.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-13.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-public class BRUser: Codable {
+public class User: Codable {
     public var email: String!
     public var id: String!
     public var name: String!
-    public var rentedBooks: [String: BRUserBookRecord]?
-    public var purchasedBooks: [String: BRUserBookRecord]?
+    public var rentedBooks: [String: UserBookRecord]?
+    public var purchasedBooks: [String: UserBookRecord]?
     
     //---- Non key
     public var profilePictureURL: String?
@@ -27,7 +27,7 @@ public class BRUser: Codable {
     }
 }
 
-public class BRUserBookRecord: Codable {
+public class UserBookRecord: Codable {
     public var bookId: String!
     public var isExpired: Bool!
     public var rentedTimestamp: Int!

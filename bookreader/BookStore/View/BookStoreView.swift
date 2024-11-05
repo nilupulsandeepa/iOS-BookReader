@@ -1,5 +1,5 @@
 //
-//  BRBookStore.swift
+//  BookStore.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-12.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct BRBookStoreView: View {
+struct BookStoreView: View {
     
     @State private var text: String = ""
-    @StateObject var booksStoreVM = BRBookStoreViewModel()
+    @StateObject var booksStoreVM = BookStoreViewModel()
     @State var isBookPresented: Bool = false
     
     var body: some View {
@@ -23,7 +23,7 @@ struct BRBookStoreView: View {
                         .padding([.bottom], 5)
                         .foregroundStyle(Color(uiColor: UIColor(red: 64, green: 64, blue: 64)))
                     Spacer()
-                    BRProfilePictureView()
+                    ProfilePictureView()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.top, .leading, .trailing], 20)
@@ -52,8 +52,15 @@ struct BRBookStoreView: View {
                     }
                     .padding([.leading, .trailing], 20)
                     .padding([.top], 15)
-                    HStack {
-                        BRBookCollectionView(storeViewModel: booksStoreVM, isPresented: $isBookPresented)
+                    ZStack {
+                        if (booksStoreVM.recentBooks.count > 0) {
+                            BookCollectionView(storeViewModel: booksStoreVM, isPresented: $isBookPresented)
+                        } else {
+                            ProgressView()
+                                .scaleEffect(1.5)
+                                .tint(Color.gray)
+                                .frame(height: 268)
+                        }
                     }
                     .padding([.top], -15)
                     HStack {
@@ -64,15 +71,19 @@ struct BRBookStoreView: View {
                     }
                     .padding([.leading, .trailing], 20)
                     HStack {
-                        BRFeaturedBookView()
+                        FeaturedBookView()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(uiColor: UIColor(red: 222, green: 245, blue: 227)))
+                            .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
                     }
                     .padding([.top], -15)
+                    .padding([.leading, .trailing], 20)
                     
                 }
             }
             .navigationDestination(isPresented: $isBookPresented, destination: {
-                if let m_SelectedBook = booksStoreVM.selectedBook {
-                    BRBookDetailsView(bookStoreViewMode: booksStoreVM)
+                if let selectedBook = booksStoreVM.selectedBook {
+                    BookDetailsView(bookStoreViewMode: booksStoreVM)
                 }
             })
         })
@@ -80,5 +91,5 @@ struct BRBookStoreView: View {
 }
 
 #Preview {
-    BRBookStoreView()
+    BookStoreView()
 }

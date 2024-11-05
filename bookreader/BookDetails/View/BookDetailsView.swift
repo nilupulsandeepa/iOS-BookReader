@@ -1,5 +1,5 @@
 //
-//  BRBookDetailsView.swift
+//  BookDetailsView.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-16.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct BRBookDetailsView: View {
+struct BookDetailsView: View {
     
-    @ObservedObject var bookStoreViewMode: BRBookStoreViewModel
-    @StateObject var g_BookDetailsViewModel: BRBookDetailsViewModel = BRBookDetailsViewModel()
+    @ObservedObject var bookStoreViewMode: BookStoreViewModel
+    @StateObject var bookDetailsViewModel: BookDetailsViewModel = BookDetailsViewModel()
     
     @State private var isPressed = false
     @State private var is7DaysRentPressed = false
@@ -35,7 +35,7 @@ struct BRBookDetailsView: View {
                 HStack {
                     Spacer()
                     
-                    Text(g_BookDetailsViewModel.bookDetails?.name ?? "")
+                    Text(bookDetailsViewModel.bookDetails?.name ?? "")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding([.bottom], 5)
@@ -51,7 +51,7 @@ struct BRBookDetailsView: View {
                 HStack {
                     Spacer()
                     
-                    Text(g_BookDetailsViewModel.bookDetails?.authorName ?? "")
+                    Text(bookDetailsViewModel.bookDetails?.authorName ?? "")
                         .font(.callout)
                         .fontWeight(.bold)
                         .padding([.bottom], 5)
@@ -64,7 +64,7 @@ struct BRBookDetailsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.leading, .trailing], 20)
                     
-                Text(g_BookDetailsViewModel.bookDetails?.description ?? "")
+                Text(bookDetailsViewModel.bookDetails?.description ?? "")
                     .font(.subheadline)
                     .padding([.bottom], 5)
                     .foregroundStyle(Color(uiColor: UIColor(red: 64, green: 64, blue: 64)))
@@ -89,7 +89,7 @@ struct BRBookDetailsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .padding([.leading, .trailing], 20)
                 .scaleEffect(isPressed ? 0.95 : 1.0)
-                .animation(.easeInOut(duration: 0.15), value: isPressed)
+                .animation(.bouncy(duration: 0.15, extraBounce: 0.5), value: isPressed)
                 .onTapGesture {
                     withAnimation {
                         isPressed = true
@@ -99,9 +99,7 @@ struct BRBookDetailsView: View {
                         isPressed = false
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
                             bookStoreViewMode.currentPurchasingBook = bookStoreViewMode.selectedBook
-                            Task {
-                                await BRInAppManager.shared.purchase(productId: BRNameSpaces.InAppConsumableProducts.inAppConsumableTier2)
-                            }
+                            InAppManager.shared.purchase(productId: NameSpaces.InAppConsumableProducts.inAppConsumableTier2)
                         })
                     }
                 }
@@ -141,7 +139,7 @@ struct BRBookDetailsView: View {
                     .padding([.leading], 20)
                     .padding([.trailing], 10)
                     .scaleEffect(is7DaysRentPressed ? 0.95 : 1.0)
-                    .animation(.easeInOut(duration: 0.15), value: is7DaysRentPressed)
+                    .animation(.bouncy(duration: 0.15, extraBounce: 0.5), value: is7DaysRentPressed)
                     .onTapGesture {
                         withAnimation {
                             is7DaysRentPressed = true
@@ -149,6 +147,7 @@ struct BRBookDetailsView: View {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                             is7DaysRentPressed = false
+                            LocalCoreDataManager.shared.fetchBooks()
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -172,7 +171,7 @@ struct BRBookDetailsView: View {
                     .padding([.leading], 10)
                     .padding([.trailing], 20)
                     .scaleEffect(is14DaysRentPressed ? 0.95 : 1.0)
-                    .animation(.easeInOut(duration: 0.15), value: is14DaysRentPressed)
+                    .animation(.bouncy(duration: 0.15, extraBounce: 0.5), value: is14DaysRentPressed)
                     .onTapGesture {
                         withAnimation {
                             is14DaysRentPressed = true
@@ -188,14 +187,10 @@ struct BRBookDetailsView: View {
             }
         }
         .onAppear {
-            if let m_BookId = bookStoreViewMode.selectedBook?.id {
-                g_BookDetailsViewModel.loadBookDetails(bookId: m_BookId)
+            if let bookId = bookStoreViewMode.selectedBook?.id {
+                bookDetailsViewModel.loadBookDetails(bookId: bookId)
             }
         }
-        .onDisappear(perform: {
-            bookStoreViewMode.selectedBook = nil
-            bookStoreViewMode.currentPurchasingBook = nil
-        })
         .navigationTitle("Book Details")
     }
 }

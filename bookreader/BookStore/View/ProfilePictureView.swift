@@ -1,5 +1,5 @@
 //
-//  BRProfilePictureView.swift
+//  ProfilePictureView.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-12.
@@ -7,15 +7,17 @@
 
 import SwiftUI
 
-struct BRProfilePictureView: View {
+struct ProfilePictureView: View {
     
-    @EnvironmentObject var appAuthentication: BRFIRAuthenticationViewModel
-    @EnvironmentObject var appAuthSession: BRSessionViewModel
+    @EnvironmentObject var appAuthentication: FIRAuthenticationViewModel
+    @EnvironmentObject var appAuthSession: SessionViewModel
+    
+    @State var isAlertPresented: Bool = false
     
     var body: some View {
-        if let m_CurrentUser: BRUser = appAuthSession.currentUser {
-            let m_ProfileImgData: Data = BRLocalStorageManager.shared.getFileDataInLocalStorage(filePath: m_CurrentUser.profilePictureURL!)!
-            Image(uiImage: UIImage(data: m_ProfileImgData)!)
+        if let currentUser: User = appAuthSession.currentUser {
+            let profileImgData: Data = LocalStorageManager.shared.getFileDataInLocalStorage(filePath: currentUser.profilePictureURL!)!
+            Image(uiImage: UIImage(data: profileImgData)!)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 44, height: 44)
@@ -27,8 +29,16 @@ struct BRProfilePictureView: View {
                 .shadow(radius: 5)
                 .padding([.bottom], 5)
                 .onTapGesture {
-                    appAuthentication.logOut()
+                    isAlertPresented = true
                 }
+                .alert("Warning!", isPresented: $isAlertPresented, actions: {
+                    Button("Cancel", role: .cancel) { }
+                    Button("LogOut", role: .destructive) {
+                        appAuthentication.logOut()
+                    }
+                }, message: {
+                    Text("Do you want to continue loging out?")
+                })
         } else {
             Image(systemName: "person.fill")
                 .resizable()
@@ -50,5 +60,5 @@ struct BRProfilePictureView: View {
 }
 
 #Preview {
-    BRProfilePictureView()
+    ProfilePictureView()
 }

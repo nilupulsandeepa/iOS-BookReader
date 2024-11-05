@@ -1,5 +1,5 @@
 //
-//  BRNavigationView.swift
+//  NavigationView.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-12.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct BRNavigationView: View {
+struct NavigationView: View {
     
     //---- MARK: Properties
-    @State private var g_SelectedTabIndex = 0
+    @State private var selectedTabIndex = 0
     
     init() {
         // Customize the appearance of the Tab Bar
@@ -24,19 +24,19 @@ struct BRNavigationView: View {
     
     var body: some View {
         TabView(
-            selection: $g_SelectedTabIndex,
+            selection: $selectedTabIndex,
             content:  {
-                BRBookStoreView()
+                BookStoreView()
                     .tabItem {
                         Image(systemName: "safari")
                         Text("Explore")
                     }
-                BRLibraryView()
+                LibraryView()
                     .tabItem {
                         Image(systemName: "books.vertical")
                         Text("Library")
                     }
-                BRSettingsView()
+                SettingsView()
                     .tabItem {
                         Image(systemName: "gear")
                         Text("Settings")
@@ -48,5 +48,5 @@ struct BRNavigationView: View {
 }
 
 #Preview {
-    BRNavigationView()
+    NavigationView()
 }

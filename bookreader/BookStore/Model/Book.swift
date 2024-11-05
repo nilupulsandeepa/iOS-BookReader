@@ -1,5 +1,5 @@
 //
-//  BRBook.swift
+//  Book.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-14.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BRBook: Hashable, Codable, Identifiable {
+public struct Book: Hashable, Codable, Identifiable {
     public var id: String = ""
     public var name: String = ""
     

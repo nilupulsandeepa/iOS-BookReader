@@ -1,5 +1,5 @@
 //
-//  BRLibraryView.swift
+//  SettingsView.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-12.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct BRLibraryView: View {
+struct SettingsView: View {
     var body: some View {
-        Text("Hello, World! I Am Library")
+        Text("Hello, World! I Am Settings")
     }
 }
 
 #Preview {
-    BRLibraryView()
+    SettingsView()
 }

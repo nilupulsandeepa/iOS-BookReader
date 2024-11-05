@@ -1,5 +1,5 @@
 //
-//  BRNameSpaces.swift
+//  NameSpaces.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-13.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BRNameSpaces {
+public struct NameSpaces {
     public struct UserDefaultIndentifiers {
         public static let currentUserKey: String = "com.bookreader.userdefaults.currentuserkey"
     }

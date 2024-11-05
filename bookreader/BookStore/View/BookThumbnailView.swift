@@ -1,5 +1,5 @@
 //
-//  BRBookThumbnailView.swift
+//  BookThumbnailView.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-12.
@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct BRBookThumbnailView: View {
-    var g_ImageName: String = "book_2"
-    var book: BRBook
+struct BookThumbnailView: View {
+    var imageName: String = "book_2"
+    var book: Book
     
-    @ObservedObject var storeVM: BRBookStoreViewModel
+    @ObservedObject var storeVM: BookStoreViewModel
     @Binding var isPresented: Bool
     
     @State private var isPressed = false
     
     var body: some View {
         VStack {
-            Image(g_ImageName)
+            Image(imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(height: 150)
@@ -32,10 +32,10 @@ struct BRBookThumbnailView: View {
         }
         .padding([.all], 4)
         .padding([.top, .bottom], 10)
-        .background(Color(uiColor: UIColor(red: 241, green: 225, blue: 149)))
+        .background(Color(uiColor: UIColor(red: 245, green: 245, blue: 245)))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .scaleEffect(isPressed ? 0.95 : 1.0)
-        .animation(.easeInOut(duration: 0.15), value: isPressed)
+        .animation(.bouncy(duration: 0.15, extraBounce: 0.5), value: isPressed)
         .onTapGesture {
             withAnimation {
                 isPressed = true
