@@ -18,14 +18,14 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     //---- MARK: Initialization
     override init() {
         super.init()
-        registerNotification()
+        registerNotifications()
         fetchRecentBookList()
     }
     
     //---- MARK: Action Methods
     
     //---- MARK: Helper Methods
-    private func registerNotification() {
+    private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseSuccess(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseSuccessNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseFailed(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseFailedNotification), object: nil)
     }

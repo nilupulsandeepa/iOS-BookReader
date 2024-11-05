@@ -44,7 +44,26 @@ public class LocalCoreDataManager {
         let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()
         
         do {
-            if let books = try managedContext?.fetch(fetchRequest) {
+            if let books: [DBBook] = try managedContext?.fetch(fetchRequest) {
+                return books.map {
+                    var convertedBook: Book = Book(id: $0.id!, name: $0.name!)
+                    convertedBook.authorId = $0.authorId
+                    convertedBook.authorName = $0.authorName
+                    convertedBook.isCloudSynced = $0.isCloudSynced
+                    convertedBook.progress = Int($0.progress)
+                    return convertedBook
+                }
+            }
+        } catch { }
+        return []
+    }
+    
+    public func fetchPurchasedBooksByQuery(query: String, args: any CVarArg...) -> [Book]? {
+        let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: query, args)
+        
+        do {
+            if let books: [DBBook] = try managedContext?.fetch(fetchRequest) {
                 return books.map {
                     var convertedBook = Book(id: $0.id!, name: $0.name!)
                     convertedBook.authorId = $0.authorId
@@ -54,10 +73,8 @@ public class LocalCoreDataManager {
                     return convertedBook
                 }
             }
-        } catch {
-            
-        }
-        return []
+        } catch { }
+        return nil
     }
     
     public func updatePurchasedBook(book: Book) {

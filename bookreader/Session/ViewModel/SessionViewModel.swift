@@ -8,14 +8,17 @@
 import Foundation
 
 public class SessionViewModel: ObservableObject {
+    
+    //---- MARK: Properties
     @Published public var currentUser: User? = nil
     
+    //---- MARK: Initialization
     init() {
-        registerNotification()
+        registerNotifications()
     }
     
     //---- MARK: Helper Methods
-    private func registerNotification() {
+    private func registerNotifications() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(sessionUserUpdated(notification:)),
@@ -32,19 +35,20 @@ public class SessionViewModel: ObservableObject {
     }
     
     private func handleBookPurchase(bookId: String) {
-        let userId: String = currentUser!.id
-        let bookInfo: [String: Any] = [
-            "book_id": bookId,
-            "isExpired": false,
-            "rented_timestamp": Int(Date().timeIntervalSince1970)
-        ]
-        let path: String = "/users/\(userId)/purchased_books/\(bookId)"
-        FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo) {
-            var updatedBook: Book = Book(id: bookId, name: "")
-            updatedBook.isCloudSynced = true
-            updatedBook.progress = 0
-            LocalCoreDataManager.shared.updatePurchasedBook(book: updatedBook)
-            print("Added Purchased Book")
+        if let userId = currentUser?.id {
+            let bookInfo: [String: Any] = [
+                "book_id": bookId,
+                "isExpired": false,
+                "rented_timestamp": Int(Date().timeIntervalSince1970)
+            ]
+            let path: String = "/users/\(userId)/purchased_books/\(bookId)"
+            FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo) {
+                var updatedBook: Book = Book(id: bookId, name: "")
+                updatedBook.isCloudSynced = true
+                updatedBook.progress = 0
+                LocalCoreDataManager.shared.updatePurchasedBook(book: updatedBook)
+                print("Added Purchased Book")
+            }
         }
     }
     

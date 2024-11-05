@@ -19,7 +19,7 @@ struct bookreaderApp: App {
     let persistenceController = PersistenceController.shared
     
     init() {
-        LocalCoreDataManager.shared.initializeCoreData(context: persistenceController.container.viewContext)
+        LocalCoreDataManager.shared.initializeCoreData(context: persistenceController.container.newBackgroundContext())
     }
     
     var body: some Scene {
