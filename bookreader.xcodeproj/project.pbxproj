@@ -43,11 +43,14 @@
 		516BD20E2CBADA060009CA9C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD20D2CBADA060009CA9C /* AuthenticationViewModel.swift */; };
 		516BD2102CBADB350009CA9C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 516BD20F2CBADB350009CA9C /* FirebaseAuth */; };
 		516BD2122CBAEB5E0009CA9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 516BD2112CBAEB5E0009CA9C /* GoogleService-Info.plist */; };
+		51795C302CDD465D00F19833 /* FIRStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51795C2F2CDD465D00F19833 /* FIRStorageManager.swift */; };
 		517A6A602CBF0C5B002938B2 /* bookreaderinapp.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 517A6A5F2CBF0C5B002938B2 /* bookreaderinapp.storekit */; };
 		5186E5122CDB292D00A1A221 /* BookProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5112CDB292D00A1A221 /* BookProgressView.swift */; };
 		5186E5142CDB329800A1A221 /* LibraryBookItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5132CDB329800A1A221 /* LibraryBookItemView.swift */; };
 		5186E5162CDB443F00A1A221 /* TestProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5152CDB443F00A1A221 /* TestProgressView.swift */; };
 		5186E51A2CDB527400A1A221 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5192CDB527400A1A221 /* LibraryViewModel.swift */; };
+		5191846D2CDBEE2A00BFFC29 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5191846C2CDBEE2A00BFFC29 /* FirebaseFirestore */; };
+		5191846F2CDC622C00BFFC29 /* CacheBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5191846E2CDC622C00BFFC29 /* CacheBook.swift */; };
 		519367FE2CC15E6200CA505F /* BookDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519367FD2CC15E6200CA505F /* BookDetailsViewModel.swift */; };
 		519603792CDA9EB000E63991 /* LibraryCurrentBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519603782CDA9EB000E63991 /* LibraryCurrentBookView.swift */; };
 		51AE107F2CC3F2300006A903 /* InAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AE107E2CC3F2300006A903 /* InAppManager.swift */; };
@@ -86,11 +89,13 @@
 		516BD20B2CBAD9A70009CA9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		516BD20D2CBADA060009CA9C /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		516BD2112CBAEB5E0009CA9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		51795C2F2CDD465D00F19833 /* FIRStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRStorageManager.swift; sourceTree = "<group>"; };
 		517A6A5F2CBF0C5B002938B2 /* bookreaderinapp.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = bookreaderinapp.storekit; sourceTree = "<group>"; };
 		5186E5112CDB292D00A1A221 /* BookProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookProgressView.swift; sourceTree = "<group>"; };
 		5186E5132CDB329800A1A221 /* LibraryBookItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBookItemView.swift; sourceTree = "<group>"; };
 		5186E5152CDB443F00A1A221 /* TestProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProgressView.swift; sourceTree = "<group>"; };
 		5186E5192CDB527400A1A221 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		5191846E2CDC622C00BFFC29 /* CacheBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheBook.swift; sourceTree = "<group>"; };
 		519367FD2CC15E6200CA505F /* BookDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailsViewModel.swift; sourceTree = "<group>"; };
 		519603782CDA9EB000E63991 /* LibraryCurrentBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCurrentBookView.swift; sourceTree = "<group>"; };
 		51AE107E2CC3F2300006A903 /* InAppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppManager.swift; sourceTree = "<group>"; };
@@ -108,6 +113,7 @@
 				516BD2062CBAC4E30009CA9C /* GoogleSignInSwift in Frameworks */,
 				5114B1B92CB8FA7C005655A9 /* FirebaseAnalytics in Frameworks */,
 				5114B1C12CB8FA7C005655A9 /* FirebaseStorage in Frameworks */,
+				5191846D2CDBEE2A00BFFC29 /* FirebaseFirestore in Frameworks */,
 				5114B1BF2CB8FA7C005655A9 /* FirebaseRemoteConfig in Frameworks */,
 				516BD2042CBAC4E30009CA9C /* GoogleSignIn in Frameworks */,
 				516BD2102CBADB350009CA9C /* FirebaseAuth in Frameworks */,
@@ -215,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				513B74BB2CBD982A0054D978 /* Book.swift */,
+				5191846E2CDC622C00BFFC29 /* CacheBook.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				516BD2002CBA9A850009CA9C /* FIRDatabaseManager.swift */,
+				51795C2F2CDD465D00F19833 /* FIRStorageManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -436,6 +444,7 @@
 				516BD2032CBAC4E30009CA9C /* GoogleSignIn */,
 				516BD2052CBAC4E30009CA9C /* GoogleSignInSwift */,
 				516BD20F2CBADB350009CA9C /* FirebaseAuth */,
+				5191846C2CDBEE2A00BFFC29 /* FirebaseFirestore */,
 			);
 			productName = bookreader;
 			productReference = 5114B1A12CB8F774005655A9 /* bookreader.app */;
@@ -528,7 +537,9 @@
 				5186E5162CDB443F00A1A221 /* TestProgressView.swift in Sources */,
 				516BD1FB2CBA7EF50009CA9C /* BookThumbnailView.swift in Sources */,
 				513B74BC2CBD982B0054D978 /* Book.swift in Sources */,
+				51795C302CDD465D00F19833 /* FIRStorageManager.swift in Sources */,
 				519367FE2CC15E6200CA505F /* BookDetailsViewModel.swift in Sources */,
+				5191846F2CDC622C00BFFC29 /* CacheBook.swift in Sources */,
 				516BD1F12CBA49CA0009CA9C /* SettingsView.swift in Sources */,
 				5186E5142CDB329800A1A221 /* LibraryBookItemView.swift in Sources */,
 			);
@@ -804,6 +815,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		5191846C2CDBEE2A00BFFC29 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5114B1B72CB8FA7C005655A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 

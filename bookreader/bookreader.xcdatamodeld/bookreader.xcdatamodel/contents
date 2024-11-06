@@ -3,10 +3,27 @@
     <entity name="DBBook" representedClassName="DBBook" syncable="YES" codeGenerationType="class">
         <attribute name="authorId" optional="YES" attributeType="String"/>
         <attribute name="authorName" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="isCloudSynced" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isRented" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="progress" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="DBCacheBook" representedClassName="DBCacheBook" syncable="YES" codeGenerationType="class">
+        <attribute name="authorId" optional="YES" attributeType="String"/>
+        <attribute name="authorName" optional="YES" attributeType="String"/>
+        <attribute name="descriptionString" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
 </model>

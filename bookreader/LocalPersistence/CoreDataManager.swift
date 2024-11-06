@@ -95,6 +95,25 @@ public class CoreDataManager {
         }
     }
     
+    public func batchUpdatePurchasedBooks(books: [Book]) {
+        let fetchRequest: NSFetchRequest = DBBook.fetchRequest()
+        
+        let bookIds: [String] = books.map {
+            $0.id
+        }
+        let bookIdDictionary: [String: Book] = Dictionary(uniqueKeysWithValues: books.map { ($0.id, $0) })
+        fetchRequest.predicate = NSPredicate(format: "id IN %@", bookIds)
+        
+        do {
+            if let books = try managedContext?.fetch(fetchRequest) {
+                for book in books {
+                    book.isCloudSynced = bookIdDictionary[book.id!]!.isCloudSynced!
+                }
+            }
+            try managedContext?.save()
+        } catch { }
+    }
+    
     public func hardcodedBook(bookId: String) {
         UserDefaultManager.shared.currentReadingBookId = bookId
         let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()

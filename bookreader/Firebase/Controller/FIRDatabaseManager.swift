@@ -7,15 +7,18 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseFirestore
 
 public class FIRDatabaseManager {
     //---- MARK: Properties
     public static var shared: FIRDatabaseManager = FIRDatabaseManager()
     
     private var dbReference: DatabaseReference!
-    
+    private var firestoreDbReference: Firestore!
     init() {
         dbReference = Database.database().reference()
+        firestoreDbReference = Firestore.firestore()
+        firestoreDbReference.collection("books")
     }
     
     //---- MARK: Action Methods
@@ -29,6 +32,13 @@ public class FIRDatabaseManager {
     public func setValueAtPath(path: String, value: Any?, completion: @escaping () -> Void) {
         dbReference.child(path).setValue(value) {
             (error, dbRef) in
+            completion()
+        }
+    }
+    
+    public func batchUpdateChildrens(children: [String: Any], completion: @escaping () -> Void) {
+        dbReference.updateChildValues(children) {
+            (Error, dbRef) in
             completion()
         }
     }

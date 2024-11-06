@@ -19,6 +19,8 @@ public struct Book: Hashable, Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case name = "name"
+        case authorId = "authorId"
+        case authorName = "authorName"
     }
     
     init(id: String, name: String) {

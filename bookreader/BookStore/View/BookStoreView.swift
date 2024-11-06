@@ -58,7 +58,7 @@ struct BookStoreView: View {
                         } else {
                             ProgressView()
                                 .scaleEffect(1.5)
-                                .tint(Color.gray)
+                                .tint(Color(uiColor: UIColor(red: 219, green: 41, blue: 85)))
                                 .frame(height: 268)
                         }
                     }

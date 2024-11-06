@@ -13,13 +13,13 @@ struct FeaturedBookView: View {
     
     var body: some View {
         HStack {
-            Image("book_2")
+            Image("book_1")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120)
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
             VStack(alignment: .leading, spacing: 8) {
-                Text("It Is A Love Thing")
+                Text("The Celestial Shit")
                     .font(.system(size: 18))
                     .foregroundStyle(Color(uiColor: UIColor(red: 64, green: 64, blue: 64)))
                 Text("By: J.K. Rowling")

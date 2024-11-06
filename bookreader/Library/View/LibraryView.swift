@@ -69,6 +69,11 @@ struct LibraryView: View {
                                     }) {
                                         Label("Rented", systemImage: "dollarsign.circle")
                                     }
+                                    Button(role: .cancel, action: {
+                                        
+                                    }) {
+                                        Label("Hidden", systemImage: "eye.slash.circle")
+                                    }
                                 } label: {
                                     Text("Sort")
                                         .multilineTextAlignment(.leading)
