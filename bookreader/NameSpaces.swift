@@ -10,6 +10,7 @@ import Foundation
 public struct NameSpaces {
     public struct UserDefaultIndentifiers {
         public static let currentUserKey: String = "com.bookreader.userdefaults.currentuserkey"
+        public static let currentReadingBookKey: String = "com.bookreader.userdefaults.currentreadingbookkey"
     }
     
     public struct FirebasePaths {

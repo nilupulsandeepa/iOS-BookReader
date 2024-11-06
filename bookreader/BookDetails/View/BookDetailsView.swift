@@ -138,6 +138,7 @@ struct BookDetailsView: View {
                                 bookStoreViewModel.currentPurchasingBook!.authorName = bookDetailsViewModel.bookDetails?.authorName
                                 bookStoreViewModel.currentPurchasingBook!.progress = 0
                                 bookStoreViewModel.currentPurchasingBook!.isCloudSynced = false
+                                bookStoreViewModel.currentPurchasingBook!.isRented = false
                                 
                                 InAppManager.shared.purchase(productId: NameSpaces.InAppConsumableProducts.inAppConsumableTier2)
                             })
@@ -187,9 +188,10 @@ struct BookDetailsView: View {
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                                 is7DaysRentPressed = false
-                                let books: [Book] = LocalCoreDataManager.shared.fetchPurchasedBooks()
-                                for book in books {
-                                    print(book)
+                                if let books: [Book] = CoreDataManager.shared.fetchPurchasedBooks() {
+                                    for book in books {
+                                        print(book)
+                                    }
                                 }
                             }
                         }

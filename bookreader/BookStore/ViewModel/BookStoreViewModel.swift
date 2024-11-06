@@ -32,22 +32,23 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     
     private func fetchRecentBookList() {
         FIRDatabaseManager.shared.observeDataAtPathOnce(path: NameSpaces.FirebasePaths.recentBooks) {
-            [weak self]
             snapshot in
             let booksObject: [String: Any] = snapshot.value as! [String: Any]
             let recentBooks: [Book] = booksObject.values.map({
                 let bookData: Data = try! JSONSerialization.data(withJSONObject: $0)
                 return try! JSONDecoder().decode(Book.self, from: bookData)
             })
-            if let self {
-                self.recentBooks = recentBooks
+            DispatchQueue.main.async {
+                [weak self] in
+                if let self {
+                    self.recentBooks = recentBooks
+                }
             }
         }
     }
     
     @objc private func purchaseSuccess(notification: Notification) {
-        let userInfo = notification.userInfo
-        LocalCoreDataManager.shared.saveBook(book: currentPurchasingBook!)
+        CoreDataManager.shared.saveBook(book: currentPurchasingBook!)
         NotificationCenter.default.post(
             name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook),
             object: nil,
@@ -58,8 +59,12 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     }
     
     @objc private func purchaseFailed(notification: Notification) {
-        let userInfo = notification.userInfo
-        currentPurchasingBook = nil
+        DispatchQueue.main.async {
+            [weak self] in
+            if let self {
+                currentPurchasingBook = nil
+            }
+        }
     }
     
     deinit {

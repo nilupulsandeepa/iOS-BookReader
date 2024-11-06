@@ -14,6 +14,7 @@ public struct Book: Hashable, Codable, Identifiable {
     public var authorName: String? = nil
     public var progress: Int? = nil
     public var isCloudSynced: Bool? = nil
+    public var isRented: Bool? = nil
     
     enum CodingKeys: String, CodingKey {
         case id = "id"

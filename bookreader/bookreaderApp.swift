@@ -13,13 +13,14 @@ struct bookreaderApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     //---- MARK: Environment Properties
-    @StateObject var appAuthentication: FIRAuthenticationViewModel = FIRAuthenticationViewModel()
+    @StateObject var appAuthentication: AuthenticationViewModel = AuthenticationViewModel()
     @StateObject var appAuthSession: SessionViewModel = SessionViewModel()
     
     let persistenceController = PersistenceController.shared
     
     init() {
-        LocalCoreDataManager.shared.initializeCoreData(context: persistenceController.container.newBackgroundContext())
+        CoreDataManager.shared.initializeCoreData(context: persistenceController.container.newBackgroundContext())
+//        CoreDataManager.shared.hardcodedBook()
     }
     
     var body: some Scene {

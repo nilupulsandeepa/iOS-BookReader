@@ -45,8 +45,7 @@ public class SessionViewModel: ObservableObject {
             FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo) {
                 var updatedBook: Book = Book(id: bookId, name: "")
                 updatedBook.isCloudSynced = true
-                updatedBook.progress = 0
-                LocalCoreDataManager.shared.updatePurchasedBook(book: updatedBook)
+                CoreDataManager.shared.updatePurchasedBook(book: updatedBook)
                 print("Added Purchased Book")
             }
         }
@@ -54,8 +53,13 @@ public class SessionViewModel: ObservableObject {
     
     @objc private func sessionUserUpdated(notification: Notification) {
         let data: [AnyHashable: Any] = notification.userInfo!
-        var m_NewUser: User? = data["newUser"] as? User
-        currentUser = m_NewUser
+        let newUser: User? = data["newUser"] as? User
+        DispatchQueue.main.async {
+            [weak self] in
+            if let self {
+                currentUser = newUser
+            }
+        }
     }
     
     @objc private func sessionUserPurchasedBook(notification: Notification) {

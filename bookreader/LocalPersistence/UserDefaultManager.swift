@@ -28,4 +28,13 @@ public class UserDefaultManager {
             }
         }
     }
+    
+    public var currentReadingBookId: String? {
+        get {
+            return UserDefaults.standard.string(forKey: NameSpaces.UserDefaultIndentifiers.currentReadingBookKey)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: NameSpaces.UserDefaultIndentifiers.currentReadingBookKey)
+        }
+    }
 }

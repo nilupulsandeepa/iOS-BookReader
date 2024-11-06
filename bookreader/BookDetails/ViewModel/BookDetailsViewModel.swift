@@ -20,23 +20,35 @@ public class BookDetailsViewModel: ObservableObject {
     
     //---- MARK: Action Methods
     public func checkIfBookAlreadyPurchased(bookId: String) {
-        if let selectedBooks: [Book] = LocalCoreDataManager.shared.fetchPurchasedBooksByQuery(query: "id = %@", args: bookId) {
-            isCurrentSelectedBookAlreadyPurchased = selectedBooks.filter {
-                $0.id == bookId
-            }.count > 0
+        if let selectedBooks: [Book] = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "id = %@", args: bookId) {
+            DispatchQueue.main.async {
+                [weak self] in
+                if let self {
+                    self.isCurrentSelectedBookAlreadyPurchased = selectedBooks.filter {
+                        $0.id == bookId
+                    }.count > 0
+                }
+            }
             return
         }
-        isCurrentSelectedBookAlreadyPurchased = false
+        DispatchQueue.main.async {
+            [weak self] in
+            if let self {
+                isCurrentSelectedBookAlreadyPurchased = false
+            }
+        }
     }
     
     public func loadBookDetails(bookId: String) {
-        FIRDatabaseManager.shared.observeDataAtPathOnce(path: "\(NameSpaces.FirebasePaths.books)/\(bookId)", completion: {
+        FIRDatabaseManager.shared.observeDataAtPathOnce(path: "\(NameSpaces.FirebasePaths.books)/\(bookId)") {
             [weak self] (snapshot) in
             let bookDetailsObj: BookDetails = try! JSONDecoder().decode(BookDetails.self, from: JSONSerialization.data(withJSONObject: snapshot.value!))
             if let self {
-                self.bookDetails = bookDetailsObj
+                DispatchQueue.main.async {
+                    self.bookDetails = bookDetailsObj
+                }
             }
-        })
+        }
     }
     
     //---- MARK: Helper Methods
@@ -50,7 +62,7 @@ public class BookDetailsViewModel: ObservableObject {
     }
     
     @objc private func localDataDidSave(notification: Notification) {
-        if let savedObjects = notification.userInfo?[NSInsertedObjectsKey] {
+        if (notification.userInfo?[NSInsertedObjectsKey]) != nil {
             if let bookDetails {
                 checkIfBookAlreadyPurchased(bookId: bookDetails.id)
             }

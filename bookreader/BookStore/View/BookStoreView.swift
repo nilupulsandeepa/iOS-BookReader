@@ -16,7 +16,7 @@ struct BookStoreView: View {
     var body: some View {
         NavigationStack(root: {
             VStack {
-                HStack {
+                HStack(alignment: .top) {
                     Text("Explore")
                         .font(.largeTitle)
                         .fontWeight(.bold)
@@ -78,11 +78,12 @@ struct BookStoreView: View {
                     }
                     .padding([.top], -15)
                     .padding([.leading, .trailing], 20)
-                    
                 }
+                
+                .scrollIndicators(.hidden)
             }
             .navigationDestination(isPresented: $isBookPresented, destination: {
-                if let selectedBook = booksStoreVM.selectedBook {
+                if booksStoreVM.selectedBook != nil {
                     BookDetailsView(bookStoreViewModel: booksStoreVM)
                 }
             })

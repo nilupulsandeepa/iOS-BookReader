@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfilePictureView: View {
     
-    @EnvironmentObject var appAuthentication: FIRAuthenticationViewModel
+    @EnvironmentObject var appAuthentication: AuthenticationViewModel
     @EnvironmentObject var appAuthSession: SessionViewModel
     
     @State var isAlertPresented: Bool = false

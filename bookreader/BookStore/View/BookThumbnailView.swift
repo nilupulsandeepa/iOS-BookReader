@@ -32,7 +32,7 @@ struct BookThumbnailView: View {
         }
         .padding([.all], 4)
         .padding([.top, .bottom], 10)
-        .background(Color(uiColor: UIColor(red: 245, green: 245, blue: 245)))
+        .background(Color(uiColor: UIColor(red: 230, green: 239, blue: 255)))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .scaleEffect(isPressed ? 0.95 : 1.0)
         .animation(.bouncy(duration: 0.15, extraBounce: 0.5), value: isPressed)

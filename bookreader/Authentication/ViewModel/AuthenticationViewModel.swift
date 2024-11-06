@@ -1,5 +1,5 @@
 //
-//  FIRAuthenticationViewModel.swift
+//  AuthenticationViewModel.swift
 //  bookreader
 //
 //  Created by Nilupul Sandeepa on 2024-10-12.
@@ -10,7 +10,7 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
-public class FIRAuthenticationViewModel: ObservableObject {
+public class AuthenticationViewModel: ObservableObject {
     //---- MARK: Properties
     
     //---- MARK: Initialization

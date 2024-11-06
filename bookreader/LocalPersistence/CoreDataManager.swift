@@ -8,10 +8,10 @@
 import Foundation
 import CoreData
 
-public class LocalCoreDataManager {
+public class CoreDataManager {
     
     //---- MARK: Properties
-    public static let shared: LocalCoreDataManager = LocalCoreDataManager()
+    public static let shared: CoreDataManager = CoreDataManager()
     
     private var managedContext: NSManagedObjectContext? = nil
     
@@ -31,6 +31,7 @@ public class LocalCoreDataManager {
             newBook.authorId = book.authorId
             newBook.progress = 0
             newBook.isCloudSynced = false
+            newBook.isRented = book.isRented!
             
             do {
                 try managedContext.save()
@@ -40,7 +41,7 @@ public class LocalCoreDataManager {
         }
     }
     
-    public func fetchPurchasedBooks() -> [Book] {
+    public func fetchPurchasedBooks() -> [Book]? {
         let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()
         
         do {
@@ -51,11 +52,12 @@ public class LocalCoreDataManager {
                     convertedBook.authorName = $0.authorName
                     convertedBook.isCloudSynced = $0.isCloudSynced
                     convertedBook.progress = Int($0.progress)
+                    convertedBook.isRented = $0.isRented
                     return convertedBook
                 }
             }
         } catch { }
-        return []
+        return nil
     }
     
     public func fetchPurchasedBooksByQuery(query: String, args: any CVarArg...) -> [Book]? {
@@ -70,6 +72,7 @@ public class LocalCoreDataManager {
                     convertedBook.authorName = $0.authorName
                     convertedBook.isCloudSynced = $0.isCloudSynced
                     convertedBook.progress = Int($0.progress)
+                    convertedBook.isRented = $0.isRented
                     return convertedBook
                 }
             }
@@ -84,12 +87,25 @@ public class LocalCoreDataManager {
         do {
             if let books = try managedContext?.fetch(fetchRequest) {
                 books[0].isCloudSynced = book.isCloudSynced!
-                books[0].progress = Int16(book.progress!)
                 
                 try managedContext?.save()
             }
         } catch {
             
         }
+    }
+    
+    public func hardcodedBook(bookId: String) {
+        UserDefaultManager.shared.currentReadingBookId = bookId
+        let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %@", bookId)
+        do {
+            if let books = try managedContext?.fetch(fetchRequest) {
+                books[0].isRented = false
+                books[0].progress = Int16(Int.random(in: 0...100))
+                
+                try managedContext?.save()
+            }
+        } catch { }
     }
 }
