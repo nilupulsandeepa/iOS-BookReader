@@ -19,7 +19,7 @@ struct FeaturedBookView: View {
                 .frame(width: 120)
                 .clipShape(RoundedRectangle(cornerSize: CGSize(width: 10, height: 10)))
             VStack(alignment: .leading, spacing: 8) {
-                Text("The Celestial Shit")
+                Text("The Celestial Code")
                     .font(.system(size: 18))
                     .foregroundStyle(Color(uiColor: UIColor(red: 64, green: 64, blue: 64)))
                 Text("By: J.K. Rowling")

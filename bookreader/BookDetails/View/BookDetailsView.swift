@@ -16,6 +16,7 @@ struct BookDetailsView: View {
     @State private var is7DaysRentPressed = false
     @State private var is14DaysRentPressed = false
     @State private var isReadNowPressed = false
+    @State private var isBookReadingViewPresented: Bool = false
     
     var body: some View {
         VStack {
@@ -101,7 +102,7 @@ struct BookDetailsView: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                                 isReadNowPressed = false
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
-                                    
+                                    isBookReadingViewPresented = true
                                 })
                             }
                         }
@@ -141,7 +142,7 @@ struct BookDetailsView: View {
                                     bookStoreViewModel.currentPurchasingBook!.isCloudSynced = false
                                     bookStoreViewModel.currentPurchasingBook!.isRented = false
                                     
-                                    InAppManager.shared.purchase(productId: NameSpaces.InAppConsumableProducts.inAppConsumableTier2)
+                                    InAppManager.shared.purchase(productId: NameSpaces.InAppConsumableProducts.inAppConsumableTier1)
                                 })
                             }
                         }
@@ -225,6 +226,7 @@ struct BookDetailsView: View {
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                                     is14DaysRentPressed = false
+                                    FIRStorageManager.shared.getFile()
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -246,6 +248,9 @@ struct BookDetailsView: View {
             }
         }
         .navigationTitle("Book Details")
+        .fullScreenCover(isPresented: $isBookReadingViewPresented) {
+            DocumentView(isPresented: $isBookReadingViewPresented)
+        }
     }
 }
 

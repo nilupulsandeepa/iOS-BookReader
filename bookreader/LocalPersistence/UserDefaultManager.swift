@@ -8,6 +8,8 @@
 import Foundation
 
 public class UserDefaultManager {
+    
+    //---- MARK: Properties
     public static var shared: UserDefaultManager = UserDefaultManager()
     
     public var currentUser: User? {

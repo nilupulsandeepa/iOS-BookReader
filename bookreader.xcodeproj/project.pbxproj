@@ -42,9 +42,14 @@
 		516BD20A2CBACB9D0009CA9C /* FeaturedBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD2092CBACB9D0009CA9C /* FeaturedBookView.swift */; };
 		516BD20E2CBADA060009CA9C /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BD20D2CBADA060009CA9C /* AuthenticationViewModel.swift */; };
 		516BD2102CBADB350009CA9C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 516BD20F2CBADB350009CA9C /* FirebaseAuth */; };
-		516BD2122CBAEB5E0009CA9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 516BD2112CBAEB5E0009CA9C /* GoogleService-Info.plist */; };
 		51795C302CDD465D00F19833 /* FIRStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51795C2F2CDD465D00F19833 /* FIRStorageManager.swift */; };
+		51795C342CDD508800F19833 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51795C332CDD508800F19833 /* GoogleService-Info.plist */; };
+		51795C382CDD529900F19833 /* DocumentPDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51795C372CDD529900F19833 /* DocumentPDFView.swift */; };
+		51795C3C2CDD5E3900F19833 /* thecelestialshit.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 51795C3B2CDD5E3900F19833 /* thecelestialshit.pdf */; };
+		51795C3F2CDD5F6200F19833 /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51795C3E2CDD5F6200F19833 /* DocumentViewModel.swift */; };
+		51795C432CDD650800F19833 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51795C422CDD650800F19833 /* DocumentView.swift */; };
 		517A6A602CBF0C5B002938B2 /* bookreaderinapp.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 517A6A5F2CBF0C5B002938B2 /* bookreaderinapp.storekit */; };
+		51822B012CDDE3F300760CEF /* -O9-mNJolBCjdEXdTQWI.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 51822B002CDDE3F300760CEF /* -O9-mNJolBCjdEXdTQWI.pdf */; };
 		5186E5122CDB292D00A1A221 /* BookProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5112CDB292D00A1A221 /* BookProgressView.swift */; };
 		5186E5142CDB329800A1A221 /* LibraryBookItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5132CDB329800A1A221 /* LibraryBookItemView.swift */; };
 		5186E5162CDB443F00A1A221 /* TestProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5152CDB443F00A1A221 /* TestProgressView.swift */; };
@@ -88,9 +93,14 @@
 		516BD2092CBACB9D0009CA9C /* FeaturedBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedBookView.swift; sourceTree = "<group>"; };
 		516BD20B2CBAD9A70009CA9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		516BD20D2CBADA060009CA9C /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
-		516BD2112CBAEB5E0009CA9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		51795C2F2CDD465D00F19833 /* FIRStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRStorageManager.swift; sourceTree = "<group>"; };
+		51795C332CDD508800F19833 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		51795C372CDD529900F19833 /* DocumentPDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPDFView.swift; sourceTree = "<group>"; };
+		51795C3B2CDD5E3900F19833 /* thecelestialshit.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = thecelestialshit.pdf; sourceTree = "<group>"; };
+		51795C3E2CDD5F6200F19833 /* DocumentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModel.swift; sourceTree = "<group>"; };
+		51795C422CDD650800F19833 /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		517A6A5F2CBF0C5B002938B2 /* bookreaderinapp.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = bookreaderinapp.storekit; sourceTree = "<group>"; };
+		51822B002CDDE3F300760CEF /* -O9-mNJolBCjdEXdTQWI.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "-O9-mNJolBCjdEXdTQWI.pdf"; sourceTree = "<group>"; };
 		5186E5112CDB292D00A1A221 /* BookProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookProgressView.swift; sourceTree = "<group>"; };
 		5186E5132CDB329800A1A221 /* LibraryBookItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBookItemView.swift; sourceTree = "<group>"; };
 		5186E5152CDB443F00A1A221 /* TestProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProgressView.swift; sourceTree = "<group>"; };
@@ -142,6 +152,7 @@
 		5114B1A32CB8F774005655A9 /* bookreader */ = {
 			isa = PBXGroup;
 			children = (
+				51795C352CDD528300F19833 /* Document */,
 				51ED07992CC905B300D8014F /* Session */,
 				51221F742CBF7DFF00D1D1CA /* BookDetails */,
 				517A6A5D2CBF0C08002938B2 /* InAppStore */,
@@ -155,8 +166,8 @@
 				516BD1E22CBA44FF0009CA9C /* Navigation */,
 				5114B1A42CB8F774005655A9 /* bookreaderApp.swift */,
 				5114B1A62CB8F774005655A9 /* ContentView.swift */,
+				51795C332CDD508800F19833 /* GoogleService-Info.plist */,
 				516BD20B2CBAD9A70009CA9C /* Info.plist */,
-				516BD2112CBAEB5E0009CA9C /* GoogleService-Info.plist */,
 				5114B1A82CB8F776005655A9 /* Assets.xcassets */,
 				5114B1AD2CB8F776005655A9 /* Persistence.swift */,
 				5114B1AF2CB8F776005655A9 /* bookreader.xcdatamodeld */,
@@ -278,6 +289,8 @@
 		516BD1E42CBA45210009CA9C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				51822B002CDDE3F300760CEF /* -O9-mNJolBCjdEXdTQWI.pdf */,
+				51795C3B2CDD5E3900F19833 /* thecelestialshit.pdf */,
 				516BD1E52CBA453C0009CA9C /* NavigationView.swift */,
 			);
 			path = View;
@@ -377,6 +390,32 @@
 				516A0CAA2CBBAEC50026954E /* View */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		51795C352CDD528300F19833 /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				51795C3D2CDD5F5300F19833 /* ViewModel */,
+				51795C362CDD528F00F19833 /* View */,
+			);
+			path = Document;
+			sourceTree = "<group>";
+		};
+		51795C362CDD528F00F19833 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				51795C372CDD529900F19833 /* DocumentPDFView.swift */,
+				51795C422CDD650800F19833 /* DocumentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		51795C3D2CDD5F5300F19833 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				51795C3E2CDD5F6200F19833 /* DocumentViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		517A6A5D2CBF0C08002938B2 /* InAppStore */ = {
@@ -492,8 +531,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				516BD2122CBAEB5E0009CA9C /* GoogleService-Info.plist in Resources */,
 				517A6A602CBF0C5B002938B2 /* bookreaderinapp.storekit in Resources */,
+				51822B012CDDE3F300760CEF /* -O9-mNJolBCjdEXdTQWI.pdf in Resources */,
+				51795C342CDD508800F19833 /* GoogleService-Info.plist in Resources */,
+				51795C3C2CDD5E3900F19833 /* thecelestialshit.pdf in Resources */,
 				5114B1AC2CB8F776005655A9 /* Preview Assets.xcassets in Resources */,
 				5114B1A92CB8F776005655A9 /* Assets.xcassets in Resources */,
 			);
@@ -525,9 +566,12 @@
 				5186E51A2CDB527400A1A221 /* LibraryViewModel.swift in Sources */,
 				516BD1E62CBA453C0009CA9C /* NavigationView.swift in Sources */,
 				516BD1F52CBA4D260009CA9C /* Extensions.swift in Sources */,
+				51795C432CDD650800F19833 /* DocumentView.swift in Sources */,
 				5114B1A72CB8F774005655A9 /* ContentView.swift in Sources */,
 				510997362CD9EAA8004B09A0 /* CoreDataManager.swift in Sources */,
 				516BD20A2CBACB9D0009CA9C /* FeaturedBookView.swift in Sources */,
+				51795C382CDD529900F19833 /* DocumentPDFView.swift in Sources */,
+				51795C3F2CDD5F6200F19833 /* DocumentViewModel.swift in Sources */,
 				516A0CAE2CBBAEFE0026954E /* User.swift in Sources */,
 				516BD1EA2CBA47680009CA9C /* BookStoreView.swift in Sources */,
 				516A0CB12CBBB82B0026954E /* StorageManager.swift in Sources */,

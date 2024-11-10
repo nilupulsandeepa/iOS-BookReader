@@ -94,26 +94,6 @@ public class SessionViewModel: ObservableObject {
                         
                         var results: [String: Any] = [:]
                         var relevantLocalBooks: [Book] = []
-//                        for id in outOfSyncBookIds {
-//                            if let self,
-//                               let books = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "id = %@", args: id),
-//                               let currentUser = self.currentUser {
-//                                if (!books[0].isCloudSynced!) {
-//                                    results["/users/\(currentUser.id!)/purchased_books/\(books[0].id)"] = [
-//                                        "bookId": books[0].id,
-//                                        "isCloudSynced": books[0].isCloudSynced!,
-//                                        "isRented": books[0].isRented!,
-//                                        "rentedTimestamp": Date().timeIntervalSince1970,
-//                                        "isExpired": false,
-//                                        "progress": books[0].progress!
-//                                    ]
-//                                    
-//                                    var updatedBook = books[0]
-//                                    updatedBook.isCloudSynced = true
-//                                    relevantLocalBooks.append(updatedBook)
-//                                }
-//                            }
-//                        }
                         
                         if let books = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "id IN %@", args: outOfSyncBookIds) {
                             for book in books {
