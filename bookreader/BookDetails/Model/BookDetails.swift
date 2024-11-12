@@ -13,4 +13,5 @@ public struct BookDetails: Hashable, Codable {
     public var description: String
     public var authorId: String
     public var authorName: String
+    public var priceTier: String
 }

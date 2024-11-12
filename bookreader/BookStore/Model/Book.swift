@@ -15,12 +15,14 @@ public struct Book: Hashable, Codable, Identifiable {
     public var progress: Int? = nil
     public var isCloudSynced: Bool? = nil
     public var isRented: Bool? = nil
+    public var priceTier: String? = nil
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case name = "name"
         case authorId = "authorId"
         case authorName = "authorName"
+        case priceTier = "priceTier"
     }
     
     init(id: String, name: String) {

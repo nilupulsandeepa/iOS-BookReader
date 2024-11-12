@@ -161,7 +161,7 @@ public class AuthenticationViewModel: ObservableObject {
     
     private func notifyUserChanges() {
         NotificationCenter.default.post(
-            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdated),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdatedNotification),
             object: nil,
             userInfo: ["newUser": UserDefaultManager.shared.currentUser as Any]
         )

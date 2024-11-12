@@ -22,14 +22,14 @@ public class SessionViewModel: ObservableObject {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(sessionUserUpdated(notification:)),
-            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdated),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdatedNotification),
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(sessionUserPurchasedBook(notification:)),
-            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification),
             object: nil
         )
     }
@@ -247,7 +247,7 @@ public class SessionViewModel: ObservableObject {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdated), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdatedNotification), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification), object: nil)
     }
 }

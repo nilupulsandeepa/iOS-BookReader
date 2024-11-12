@@ -53,6 +53,7 @@ public class CoreDataManager {
                     convertedBook.isCloudSynced = $0.isCloudSynced
                     convertedBook.progress = Int($0.progress)
                     convertedBook.isRented = $0.isRented
+                    convertedBook.priceTier = $0.priceTier
                     return convertedBook
                 }
             }
@@ -73,6 +74,7 @@ public class CoreDataManager {
                     convertedBook.isCloudSynced = $0.isCloudSynced
                     convertedBook.progress = Int($0.progress)
                     convertedBook.isRented = $0.isRented
+                    convertedBook.priceTier = $0.priceTier
                     return convertedBook
                 }
             }

@@ -17,8 +17,6 @@ public class FIRDatabaseManager {
     private var firestoreDbReference: Firestore!
     init() {
         dbReference = Database.database().reference()
-        firestoreDbReference = Firestore.firestore()
-        firestoreDbReference.collection("books")
     }
     
     //---- MARK: Action Methods

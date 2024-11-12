@@ -10,6 +10,7 @@ import SwiftUI
 struct LibraryBookItem: View {
     
     @State public var book: Book? = nil
+    @State private var isBookReadingViewPresented: Bool = false
     
     var body: some View {
         HStack(alignment: .center) {
@@ -62,7 +63,11 @@ struct LibraryBookItem: View {
             }
         }
         .onTapGesture {
+            isBookReadingViewPresented = true
             CoreDataManager.shared.hardcodedBook(bookId: book!.id)
+        }
+        .fullScreenCover(isPresented: $isBookReadingViewPresented) {
+            DocumentView(isPresented: $isBookReadingViewPresented)
         }
     }
 }

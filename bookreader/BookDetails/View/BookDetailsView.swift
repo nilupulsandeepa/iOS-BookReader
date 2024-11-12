@@ -110,13 +110,20 @@ struct BookDetailsView: View {
                         HStack {
                             Spacer()
                             
-                            Text("USD 4.99")
-                                .font(.callout)
-                                .fontWeight(.bold)
-                                .padding([.top, .bottom], 5)
-                                .foregroundStyle(Color.white)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
+                            if (!isPressed) {
+                                Text("\(InAppManager.shared.getProductPrice(inAppProduct: bookDetailsViewModel.bookDetails!.priceTier))")
+                                    .font(.callout)
+                                    .fontWeight(.bold)
+                                    .padding([.top, .bottom], 5)
+                                    .foregroundStyle(Color.white)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.5)
+                            } else {
+                                ProgressView()
+                                    .scaleEffect(1)
+                                    .frame(width: 50)
+                                    .tint(Color.white)
+                            }
                             
                             Spacer()
                         }
@@ -132,7 +139,7 @@ struct BookDetailsView: View {
                                 isPressed = true
                             }
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 isPressed = false
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
                                     bookStoreViewModel.currentPurchasingBook = bookStoreViewModel.selectedBook
@@ -142,7 +149,7 @@ struct BookDetailsView: View {
                                     bookStoreViewModel.currentPurchasingBook!.isCloudSynced = false
                                     bookStoreViewModel.currentPurchasingBook!.isRented = false
                                     
-                                    InAppManager.shared.purchase(productId: NameSpaces.InAppConsumableProducts.inAppConsumableTier1)
+                                    InAppManager.shared.purchase(productId: InAppManager.shared.inAppProductsDictionary[bookDetailsViewModel.bookDetails!.priceTier]!)
                                 })
                             }
                         }

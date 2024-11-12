@@ -28,6 +28,7 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseSuccess(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseSuccessNotification), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(purchaseFailed(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseFailedNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(networkStateChanged(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.networkStateChangedNotification), object: nil)
     }
     
     private func fetchRecentBookList() {
@@ -50,7 +51,7 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     @objc private func purchaseSuccess(notification: Notification) {
         CoreDataManager.shared.saveBook(book: currentPurchasingBook!)
         NotificationCenter.default.post(
-            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification),
             object: nil,
             userInfo: [
                 "bookId": currentPurchasingBook!.id
@@ -65,6 +66,11 @@ public class BookStoreViewModel: NSObject, ObservableObject {
                 currentPurchasingBook = nil
             }
         }
+    }
+    
+    @objc private func networkStateChanged(notification: Notification) {
+        let networkState: NetworkState = notification.userInfo!["networkState"] as! NetworkState
+        print("Network State Changed: \(networkState)")
     }
     
     deinit {

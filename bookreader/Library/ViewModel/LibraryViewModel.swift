@@ -73,7 +73,7 @@ public class LibraryViewModel: ObservableObject {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(sessionUserPurchasedBook(notification:)),
-            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification),
             object: nil
         )
     }
@@ -84,6 +84,6 @@ public class LibraryViewModel: ObservableObject {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBook), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification), object: nil)
     }
 }

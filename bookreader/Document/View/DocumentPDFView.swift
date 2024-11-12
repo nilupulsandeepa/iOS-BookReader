@@ -18,6 +18,8 @@ struct DocumentPDFView: UIViewRepresentable {
         pdfView.document = PDFDocument(url: self.url)
         pdfView.displaysPageBreaks = false
         pdfView.pageBreakMargins = .zero
+        pdfView.displayMode = .singlePage
+        pdfView.displayDirection = .horizontal
 
         pdfView.autoScales = true
         return pdfView

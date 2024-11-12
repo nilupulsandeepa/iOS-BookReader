@@ -12,6 +12,11 @@ public class InAppManager {
     //---- MARK: Properties
     public static var shared: InAppManager = InAppManager()
     
+    public let inAppProductsDictionary: [String: String] = [
+        "tier1": NameSpaces.InAppConsumableProducts.inAppConsumableTier1,
+        "tier2": NameSpaces.InAppConsumableProducts.inAppConsumableTier2,
+        "tier3": NameSpaces.InAppConsumableProducts.inAppConsumableTier3
+    ]
     private var inAppNonRenewableProducts: [String: Product] = [:]
     private var inAppNonConsumableProducts: [String: Product] = [:]
     private var allInAppProducts: [String: Product] = [:]
@@ -78,6 +83,13 @@ public class InAppManager {
                 }
             }
         }
+    }
+    
+    public func getProductPrice(inAppProduct: String) -> String {
+        if let product: Product = inAppNonConsumableProducts[inAppProductsDictionary[inAppProduct] ?? "none"] {
+            return product.displayPrice
+        }
+        return "\(0.0)"
     }
     
     //---- MARK: Helper methods

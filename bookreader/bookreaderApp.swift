@@ -20,6 +20,7 @@ struct bookreaderApp: App {
     
     init() {
         CoreDataManager.shared.initializeCoreData(context: persistenceController.container.newBackgroundContext())
+        ConnectivityManager.shared.startListening()
     }
     
     var body: some Scene {
