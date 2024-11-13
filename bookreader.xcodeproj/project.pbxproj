@@ -63,6 +63,7 @@
 		51C0CD332CE362A000B642C0 /* NetworkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C0CD322CE362A000B642C0 /* NetworkState.swift */; };
 		51E219E42CC1864300CED9A5 /* BookDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E219E32CC1864300CED9A5 /* BookDetails.swift */; };
 		51ED079C2CC905E600D8014F /* SessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51ED079B2CC905E600D8014F /* SessionViewModel.swift */; };
+		51F90FDA2CE46B910071C35A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F90FD92CE46B910071C35A /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		51C0CD322CE362A000B642C0 /* NetworkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkState.swift; sourceTree = "<group>"; };
 		51E219E32CC1864300CED9A5 /* BookDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetails.swift; sourceTree = "<group>"; };
 		51ED079B2CC905E600D8014F /* SessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionViewModel.swift; sourceTree = "<group>"; };
+		51F90FD92CE46B910071C35A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +367,7 @@
 			children = (
 				516BD1F42CBA4D260009CA9C /* Extensions.swift */,
 				516A0CB42CBBE1E50026954E /* Error.swift */,
+				51F90FD92CE46B910071C35A /* Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				51ED079C2CC905E600D8014F /* SessionViewModel.swift in Sources */,
 				51221F792CBF7E4200D1D1CA /* BookDetailsView.swift in Sources */,
 				51AE107F2CC3F2300006A903 /* InAppManager.swift in Sources */,
+				51F90FDA2CE46B910071C35A /* Utils.swift in Sources */,
 				5186E51A2CDB527400A1A221 /* LibraryViewModel.swift in Sources */,
 				516BD1E62CBA453C0009CA9C /* NavigationView.swift in Sources */,
 				516BD1F52CBA4D260009CA9C /* Extensions.swift in Sources */,

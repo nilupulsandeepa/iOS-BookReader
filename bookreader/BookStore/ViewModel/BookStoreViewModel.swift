@@ -12,8 +12,8 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     //---- MARK: Properties
     @Published public var recentBooks: [Book] = []
     @Published public var selectedBook: Book? = nil
-    
-    public var currentPurchasingBook: Book? = nil
+    @Published public var isAdditionalDetailsLoaded: Bool = false
+    @Published var isCurrentSelectedBookAlreadyPurchased: Bool = false
     
     //---- MARK: Initialization
     override init() {
@@ -23,12 +23,93 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     }
     
     //---- MARK: Action Methods
+    public func fetchAdditionalBookDetails() {
+        isAdditionalDetailsLoaded = false
+        if let cachedBook: Book = CoreDataManager.shared.fetchCachedBookByQuery(query: "id = %@", args: selectedBook!.id) {
+            DispatchQueue.main.async {
+                [weak self] in
+                if let self {
+                    self.selectedBook = cachedBook
+                    self.isAdditionalDetailsLoaded = true
+                }
+            }
+            return
+        }
+        Utils.delayExecution(seconds: 1.0) {
+            [weak self] in
+            guard let self else {
+                return
+            }
+            FIRDatabaseManager.shared.observeDataAtPathOnce(path: "\(NameSpaces.FirebasePaths.books)/\(self.selectedBook!.id)") {
+                [weak self] (snapshot) in
+                let bookDetailsObj: Book = try! JSONDecoder().decode(Book.self, from: JSONSerialization.data(withJSONObject: snapshot.value!))
+                if let self {
+                    var updatedBook: Book = Book(id: selectedBook!.id, name: selectedBook!.name)
+                    updatedBook.authorId = bookDetailsObj.authorId
+                    updatedBook.authorName = bookDetailsObj.authorName
+                    updatedBook.priceTier = bookDetailsObj.priceTier
+                    updatedBook.description = bookDetailsObj.description
+                    CoreDataManager.shared.cacheBook(book: updatedBook)
+                    DispatchQueue.main.async {
+                        self.selectedBook = updatedBook
+                        self.isAdditionalDetailsLoaded = true
+                    }
+                }
+            }
+        }
+    }
+    
+    public func checkIfBookAlreadyPurchased() {
+        if let selectedBooks: [Book] = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "id = %@", args: selectedBook!.id) {
+            DispatchQueue.main.async {
+                [weak self] in
+                if let self {
+                    self.isCurrentSelectedBookAlreadyPurchased = selectedBooks.filter {
+                        $0.id == self.selectedBook!.id
+                    }.count > 0
+                }
+            }
+            return
+        }
+        DispatchQueue.main.async {
+            [weak self] in
+            if let self {
+                isCurrentSelectedBookAlreadyPurchased = false
+            }
+        }
+    }
+    
+    public func purchaseCurrentSelectedBook() {
+        selectedBook!.isRented = false
+        InAppManager.shared.purchase(productId: InAppManager.shared.inAppProductsDictionary[selectedBook!.priceTier!]!)
+    }
     
     //---- MARK: Helper Methods
     private func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(purchaseSuccess(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseSuccessNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(purchaseFailed(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseFailedNotification), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(networkStateChanged(notification:)), name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.networkStateChangedNotification), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(purchaseSuccess(notification:)),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseSuccessNotification),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(purchaseFailed(notification:)),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseFailedNotification),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(networkStateChanged(notification:)),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.networkStateChangedNotification),
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(localDataDidSave(notification:)),
+            name: .NSManagedObjectContextDidSave,
+            object: nil
+        )
     }
     
     private func fetchRecentBookList() {
@@ -49,22 +130,23 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     }
     
     @objc private func purchaseSuccess(notification: Notification) {
-        CoreDataManager.shared.saveBook(book: currentPurchasingBook!)
+        CoreDataManager.shared.saveBook(book: selectedBook!)
         NotificationCenter.default.post(
             name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification),
             object: nil,
             userInfo: [
-                "bookId": currentPurchasingBook!.id
+                "bookId": selectedBook!.id
             ]
         )
     }
     
     @objc private func purchaseFailed(notification: Notification) {
-        DispatchQueue.main.async {
-            [weak self] in
-            if let self {
-                currentPurchasingBook = nil
-            }
+
+    }
+    
+    @objc private func localDataDidSave(notification: Notification) {
+        if selectedBook?.authorName != nil {
+            checkIfBookAlreadyPurchased()
         }
     }
     
@@ -76,5 +158,6 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseSuccessNotification), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.purchaseFailedNotification), object: nil)
+        NotificationCenter.default.removeObserver(self, name: .NSManagedObjectContextDidSave, object: nil)
     }
 }

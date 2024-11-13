@@ -116,6 +116,41 @@ public class CoreDataManager {
         } catch { }
     }
     
+    public func cacheBook(book: Book) {
+        if let managedContext {
+            let dbCacheBook: DBCacheBook = DBCacheBook(context: managedContext)
+            dbCacheBook.id = book.id
+            dbCacheBook.name = book.name
+            dbCacheBook.descriptionString = book.description
+            dbCacheBook.authorId = book.authorId
+            dbCacheBook.authorName = book.authorName
+            dbCacheBook.priceTier = book.priceTier
+            
+            do {
+                try managedContext.save()
+            } catch { }
+        }
+    }
+    
+    public func fetchCachedBookByQuery(query: String, args: any CVarArg...) -> Book? {
+        let fetchRequest: NSFetchRequest<DBCacheBook> = DBCacheBook.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: query, args)
+        
+        do {
+            if let books: [DBCacheBook] = try managedContext?.fetch(fetchRequest) {
+                if (!books.isEmpty) {
+                    var convertedBook: Book = Book(id: books[0].id!, name: books[0].name!)
+                    convertedBook.authorId = books[0].authorId!
+                    convertedBook.authorName = books[0].authorName!
+                    convertedBook.description = books[0].descriptionString!
+                    convertedBook.priceTier = books[0].priceTier!
+                    return convertedBook
+                }
+            }
+        } catch { }
+        return nil
+    }
+    
     public func hardcodedBook(bookId: String) {
         UserDefaultManager.shared.currentReadingBookId = bookId
         let fetchRequest: NSFetchRequest<DBBook> = DBBook.fetchRequest()

@@ -10,7 +10,6 @@ import SwiftUI
 struct BookDetailsView: View {
     
     @ObservedObject var bookStoreViewModel: BookStoreViewModel
-    @StateObject var bookDetailsViewModel: BookDetailsViewModel = BookDetailsViewModel()
     
     @State private var isPressed = false
     @State private var is7DaysRentPressed = false
@@ -37,7 +36,7 @@ struct BookDetailsView: View {
                 HStack {
                     Spacer()
                     
-                    Text(bookDetailsViewModel.bookDetails?.name ?? "")
+                    Text(bookStoreViewModel.selectedBook!.name)
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .padding([.bottom], 5)
@@ -53,7 +52,7 @@ struct BookDetailsView: View {
                 HStack {
                     Spacer()
                     
-                    Text(bookDetailsViewModel.bookDetails?.authorName ?? "")
+                    Text(bookStoreViewModel.selectedBook!.authorName ?? "")
                         .font(.callout)
                         .fontWeight(.bold)
                         .padding([.bottom], 5)
@@ -66,14 +65,14 @@ struct BookDetailsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.leading, .trailing], 20)
                 
-                if bookDetailsViewModel.bookDetails != nil {
-                    Text(bookDetailsViewModel.bookDetails?.description ?? "")
+                if bookStoreViewModel.isAdditionalDetailsLoaded {
+                    Text(bookStoreViewModel.selectedBook!.description ?? "")
                         .font(.subheadline)
                         .padding([.bottom], 5)
                         .foregroundStyle(Color(uiColor: UIColor(red: 64, green: 64, blue: 64)))
                         .padding([.leading, .trailing], 20)
                     
-                    if (bookDetailsViewModel.isCurrentSelectedBookAlreadyPurchased) {
+                    if (bookStoreViewModel.isCurrentSelectedBookAlreadyPurchased) {
                         HStack {
                             Spacer()
                             
@@ -111,7 +110,7 @@ struct BookDetailsView: View {
                             Spacer()
                             
                             if (!isPressed) {
-                                Text("\(InAppManager.shared.getProductPrice(inAppProduct: bookDetailsViewModel.bookDetails!.priceTier))")
+                                Text("\(InAppManager.shared.getProductPrice(inAppProduct: bookStoreViewModel.selectedBook!.priceTier ?? ""))")
                                     .font(.callout)
                                     .fontWeight(.bold)
                                     .padding([.top, .bottom], 5)
@@ -142,14 +141,7 @@ struct BookDetailsView: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 isPressed = false
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
-                                    bookStoreViewModel.currentPurchasingBook = bookStoreViewModel.selectedBook
-                                    bookStoreViewModel.currentPurchasingBook!.authorId = bookDetailsViewModel.bookDetails?.authorId
-                                    bookStoreViewModel.currentPurchasingBook!.authorName = bookDetailsViewModel.bookDetails?.authorName
-                                    bookStoreViewModel.currentPurchasingBook!.progress = 0
-                                    bookStoreViewModel.currentPurchasingBook!.isCloudSynced = false
-                                    bookStoreViewModel.currentPurchasingBook!.isRented = false
-                                    
-                                    InAppManager.shared.purchase(productId: InAppManager.shared.inAppProductsDictionary[bookDetailsViewModel.bookDetails!.priceTier]!)
+                                    bookStoreViewModel.purchaseCurrentSelectedBook()
                                 })
                             }
                         }
@@ -249,9 +241,9 @@ struct BookDetailsView: View {
             }
         }
         .onAppear {
-            if let bookId = bookStoreViewModel.selectedBook?.id {
-                bookDetailsViewModel.checkIfBookAlreadyPurchased(bookId: bookId)
-                bookDetailsViewModel.loadBookDetails(bookId: bookId)
+            if (bookStoreViewModel.selectedBook?.id) != nil {
+                bookStoreViewModel.checkIfBookAlreadyPurchased()
+                bookStoreViewModel.fetchAdditionalBookDetails()
             }
         }
         .navigationTitle("Book Details")
