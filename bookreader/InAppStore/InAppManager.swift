@@ -66,6 +66,7 @@ public class InAppManager {
                     }
                 default:
                     print("Purchase Failed")
+                    purchaseFailed()
                 }
             }
         }

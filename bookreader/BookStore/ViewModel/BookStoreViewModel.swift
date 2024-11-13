@@ -14,6 +14,7 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     @Published public var selectedBook: Book? = nil
     @Published public var isAdditionalDetailsLoaded: Bool = false
     @Published var isCurrentSelectedBookAlreadyPurchased: Bool = false
+    @Published var isPurchasing: Bool = false
     
     //---- MARK: Initialization
     override init() {
@@ -80,6 +81,7 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     }
     
     public func purchaseCurrentSelectedBook() {
+        isPurchasing = true
         selectedBook!.isRented = false
         InAppManager.shared.purchase(productId: InAppManager.shared.inAppProductsDictionary[selectedBook!.priceTier!]!)
     }
@@ -138,10 +140,17 @@ public class BookStoreViewModel: NSObject, ObservableObject {
                 "bookId": selectedBook!.id
             ]
         )
+        isPurchasing = false
     }
     
     @objc private func purchaseFailed(notification: Notification) {
-
+        DispatchQueue.main.async {
+            [weak self] in
+            if let self {
+                self.isPurchasing = false
+                self.selectedBook!.isRented = nil
+            }
+        }
     }
     
     @objc private func localDataDidSave(notification: Notification) {

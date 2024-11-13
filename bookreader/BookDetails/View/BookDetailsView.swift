@@ -79,14 +79,13 @@ struct BookDetailsView: View {
                             Text("Read Now")
                                 .font(.callout)
                                 .fontWeight(.bold)
-                                .padding([.top, .bottom], 5)
                                 .foregroundStyle(Color.white)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.5)
                             
                             Spacer()
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
                         .padding([.top, .bottom], 15)
                         .background(Color(uiColor: UIColor(red: 236, green: 195, blue: 11)))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -109,24 +108,22 @@ struct BookDetailsView: View {
                         HStack {
                             Spacer()
                             
-                            if (!isPressed) {
+                            if (!bookStoreViewModel.isPurchasing) {
                                 Text("\(InAppManager.shared.getProductPrice(inAppProduct: bookStoreViewModel.selectedBook!.priceTier ?? ""))")
                                     .font(.callout)
                                     .fontWeight(.bold)
-                                    .padding([.top, .bottom], 5)
                                     .foregroundStyle(Color.white)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.5)
                             } else {
                                 ProgressView()
                                     .scaleEffect(1)
-                                    .frame(width: 50)
                                     .tint(Color.white)
                             }
                             
                             Spacer()
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
                         .padding([.top, .bottom], 15)
                         .background(Color(uiColor: UIColor(red: 219, green: 41, blue: 85)))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -137,14 +134,16 @@ struct BookDetailsView: View {
                             withAnimation {
                                 isPressed = true
                             }
+                            bookStoreViewModel.isPurchasing = true
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            Utils.delayExecution(seconds: 0.15) {
                                 isPressed = false
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: {
+                                Utils.delayExecution(seconds: 0.5) {
                                     bookStoreViewModel.purchaseCurrentSelectedBook()
-                                })
+                                }
                             }
                         }
+                        .disabled(bookStoreViewModel.isPurchasing)
                         
                         HStack {
                             Text("Rent this book:")
@@ -167,14 +166,13 @@ struct BookDetailsView: View {
                                 Text("7 Days: USD 1.99")
                                     .font(.callout)
                                     .fontWeight(.bold)
-                                    .padding([.top, .bottom], 5)
                                     .foregroundStyle(Color.white)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.5)
                                 
                                 Spacer()
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
                             .padding([.top, .bottom], 15)
                             .background(Color(uiColor: UIColor(red: 4, green: 142, blue: 87)))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -196,7 +194,7 @@ struct BookDetailsView: View {
                                     }
                                 }
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .disabled(bookStoreViewModel.isPurchasing)
                             
                             HStack {
                                 Spacer()
@@ -204,13 +202,13 @@ struct BookDetailsView: View {
                                 Text("14 Days: USD 3.29")
                                     .font(.callout)
                                     .fontWeight(.bold)
-                                    .padding([.top, .bottom], 5)
                                     .foregroundStyle(Color.white)
                                     .lineLimit(1)
                                     .minimumScaleFactor(0.5)
                                 
                                 Spacer()
                             }
+                            .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
                             .padding([.top, .bottom], 15)
                             .background(Color(uiColor: UIColor(red: 4, green: 142, blue: 87)))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -228,7 +226,7 @@ struct BookDetailsView: View {
                                     FIRStorageManager.shared.getFile()
                                 }
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .disabled(bookStoreViewModel.isPurchasing)
                         }
                         Spacer()
                     }
