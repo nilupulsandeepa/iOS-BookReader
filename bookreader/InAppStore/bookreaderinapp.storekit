@@ -77,9 +77,42 @@
       "productID" : "com.bookreader.test.booktier3",
       "referenceName" : "Book Tier 3",
       "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "11C5D7A4",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "Book Rental For 7 Days",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.bookreader.test.rental7",
+      "referenceName" : "Rental: 7Days",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "3.29",
+      "familyShareable" : false,
+      "internalID" : "72ED6D5F",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "Book Rental For 14 Days",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.bookreader.test.rental14",
+      "referenceName" : "Rental: 14Days",
+      "type" : "Consumable"
     }
   ],
   "settings" : {
+    "_compatibilityTimeRate" : {
+      "3" : 6
+    },
     "_failTransactionsEnabled" : false,
     "_locale" : "en_US",
     "_storefront" : "USA",
@@ -129,7 +162,8 @@
         "enabled" : false,
         "name" : "Offer Code Redeem Sheet"
       }
-    ]
+    ],
+    "_timeRate" : 1002
   },
   "subscriptionGroups" : [
 

@@ -15,6 +15,8 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     @Published public var isAdditionalDetailsLoaded: Bool = false
     @Published var isCurrentSelectedBookAlreadyPurchased: Bool = false
     @Published var isPurchasing: Bool = false
+    @Published var isRent7Purchasing: Bool = false
+    @Published var isRent14Purchasing: Bool = false
     
     //---- MARK: Initialization
     override init() {
@@ -86,6 +88,13 @@ public class BookStoreViewModel: NSObject, ObservableObject {
         InAppManager.shared.purchase(productId: InAppManager.shared.inAppProductsDictionary[selectedBook!.priceTier!]!)
     }
     
+    public func rentCurrentSelectedBook(rentalOption: RentalOptions) {
+        isRent7Purchasing = rentalOption == .Days7
+        isRent14Purchasing = rentalOption == .Days14
+        selectedBook!.isRented = true
+        InAppManager.shared.purchase(productId: InAppManager.shared.inAppProductsDictionary[rentalOption.rawValue]!)
+    }
+    
     //---- MARK: Helper Methods
     private func registerNotifications() {
         NotificationCenter.default.addObserver(
@@ -137,10 +146,18 @@ public class BookStoreViewModel: NSObject, ObservableObject {
             name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification),
             object: nil,
             userInfo: [
-                "bookId": selectedBook!.id
+                "bookId": selectedBook!.id,
+                "isRental": isRent7Purchasing || isRent14Purchasing
             ]
         )
-        isPurchasing = false
+        DispatchQueue.main.async {
+            [weak self] in
+            if let self {
+                self.isPurchasing = false
+                self.isRent7Purchasing = false
+                self.isRent14Purchasing = false
+            }
+        }
     }
     
     @objc private func purchaseFailed(notification: Notification) {
@@ -148,6 +165,8 @@ public class BookStoreViewModel: NSObject, ObservableObject {
             [weak self] in
             if let self {
                 self.isPurchasing = false
+                self.isRent7Purchasing = false
+                self.isRent14Purchasing = false
                 self.selectedBook!.isRented = nil
             }
         }

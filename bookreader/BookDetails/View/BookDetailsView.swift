@@ -143,7 +143,7 @@ struct BookDetailsView: View {
                                 }
                             }
                         }
-                        .disabled(bookStoreViewModel.isPurchasing)
+                        .disabled(bookStoreViewModel.isPurchasing || bookStoreViewModel.isRent7Purchasing || bookStoreViewModel.isRent14Purchasing)
                         
                         HStack {
                             Text("Rent this book:")
@@ -163,13 +163,19 @@ struct BookDetailsView: View {
                             HStack {
                                 Spacer()
                                 
-                                Text("7 Days: USD 1.99")
-                                    .font(.callout)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color.white)
-                                    .lineLimit(1)
-                                    .minimumScaleFactor(0.5)
-                                
+                                if (!bookStoreViewModel.isRent7Purchasing) {
+                                    Text("7 Days: \(InAppManager.shared.getProductPrice(inAppProduct: RentalOptions.Days7.rawValue))")
+                                        .font(.callout)
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(Color.white)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.5)
+                                } else {
+                                    ProgressView()
+                                        .scaleEffect(1)
+                                        .tint(Color.white)
+                                }
+                                    
                                 Spacer()
                             }
                             .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
@@ -184,27 +190,32 @@ struct BookDetailsView: View {
                                 withAnimation {
                                     is7DaysRentPressed = true
                                 }
+                                bookStoreViewModel.isRent7Purchasing = true
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                                     is7DaysRentPressed = false
-                                    if let books: [Book] = CoreDataManager.shared.fetchPurchasedBooks() {
-                                        for book in books {
-                                            print(book)
-                                        }
+                                    Utils.delayExecution(seconds: 0.5) {
+                                        bookStoreViewModel.rentCurrentSelectedBook(rentalOption: .Days7)
                                     }
                                 }
                             }
-                            .disabled(bookStoreViewModel.isPurchasing)
+                            .disabled(bookStoreViewModel.isPurchasing || bookStoreViewModel.isRent7Purchasing || bookStoreViewModel.isRent14Purchasing)
                             
                             HStack {
                                 Spacer()
                                 
-                                Text("14 Days: USD 3.29")
-                                    .font(.callout)
-                                    .fontWeight(.bold)
-                                    .foregroundStyle(Color.white)
-                                    .lineLimit(1)
-                                    .minimumScaleFactor(0.5)
+                                if (!bookStoreViewModel.isRent14Purchasing) {
+                                    Text("14 Days: \(InAppManager.shared.getProductPrice(inAppProduct: RentalOptions.Days14.rawValue))")
+                                        .font(.callout)
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(Color.white)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.5)
+                                } else {
+                                    ProgressView()
+                                        .scaleEffect(1)
+                                        .tint(Color.white)
+                                }
                                 
                                 Spacer()
                             }
@@ -220,13 +231,16 @@ struct BookDetailsView: View {
                                 withAnimation {
                                     is14DaysRentPressed = true
                                 }
+                                bookStoreViewModel.isRent14Purchasing = true
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                                     is14DaysRentPressed = false
-                                    FIRStorageManager.shared.getFile()
+                                    Utils.delayExecution(seconds: 0.5) {
+                                        bookStoreViewModel.rentCurrentSelectedBook(rentalOption: .Days14)
+                                    }
                                 }
                             }
-                            .disabled(bookStoreViewModel.isPurchasing)
+                            .disabled(bookStoreViewModel.isPurchasing || bookStoreViewModel.isRent7Purchasing || bookStoreViewModel.isRent14Purchasing)
                         }
                         Spacer()
                     }

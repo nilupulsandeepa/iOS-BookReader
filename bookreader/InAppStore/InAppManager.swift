@@ -15,33 +15,36 @@ public class InAppManager {
     public let inAppProductsDictionary: [String: String] = [
         "tier1": NameSpaces.InAppConsumableProducts.inAppConsumableTier1,
         "tier2": NameSpaces.InAppConsumableProducts.inAppConsumableTier2,
-        "tier3": NameSpaces.InAppConsumableProducts.inAppConsumableTier3
+        "tier3": NameSpaces.InAppConsumableProducts.inAppConsumableTier3,
+        "rental7": NameSpaces.InAppConsumableProducts.inAppConsumableRental7,
+        "rental14": NameSpaces.InAppConsumableProducts.inAppConsumableRental14
     ]
-    private var inAppNonRenewableProducts: [String: Product] = [:]
-    private var inAppNonConsumableProducts: [String: Product] = [:]
+    private var inAppRenewableProducts: [String: Product] = [:]
+    private var inAppConsumableProducts: [String: Product] = [:]
     private var allInAppProducts: [String: Product] = [:]
     
     //---- MARK: Action Methods
     public func loadInAppProducts() async {
-        let nonConsumableProducts: [String] = [
+        let consumableProducts: [String] = [
             NameSpaces.InAppConsumableProducts.inAppConsumableTier1,
             NameSpaces.InAppConsumableProducts.inAppConsumableTier2,
             NameSpaces.InAppConsumableProducts.inAppConsumableTier3,
+            NameSpaces.InAppConsumableProducts.inAppConsumableRental7,
+            NameSpaces.InAppConsumableProducts.inAppConsumableRental14
         ]
-        let nonRenewableProducts: [String] = [
+        let renewableProducts: [String] = [
             NameSpaces.InAppNonRenewableSubscriptionProducts.inApp7DaysRent,
             NameSpaces.InAppNonRenewableSubscriptionProducts.inApp14DaysRent,
         ]
-        let allProducts: [String] = nonConsumableProducts + nonRenewableProducts
+        let allProducts: [String] = consumableProducts + renewableProducts
         if let inAppProducts: [Product] = try? await Product.products(for: allProducts) {
-            print("")
             for product in inAppProducts {
                 switch product.type {
                 case .consumable:
-                    inAppNonConsumableProducts[product.id] = product
+                    inAppConsumableProducts[product.id] = product
                     allInAppProducts[product.id] = product
                 case .nonRenewable:
-                    inAppNonRenewableProducts[product.id] = product
+                    inAppRenewableProducts[product.id] = product
                     allInAppProducts[product.id] = product
                 default:
                     _ = "No Action"
@@ -87,7 +90,7 @@ public class InAppManager {
     }
     
     public func getProductPrice(inAppProduct: String) -> String {
-        if let product: Product = inAppNonConsumableProducts[inAppProductsDictionary[inAppProduct] ?? "none"] {
+        if let product: Product = inAppConsumableProducts[inAppProductsDictionary[inAppProduct] ?? "none"] {
             return product.displayPrice
         }
         return "\(0.0)"

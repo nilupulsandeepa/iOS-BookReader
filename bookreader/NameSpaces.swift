@@ -27,6 +27,8 @@ public struct NameSpaces {
         public static let inAppConsumableTier1: String = "com.bookreader.test.booktier1"
         public static let inAppConsumableTier2: String = "com.bookreader.test.booktier2"
         public static let inAppConsumableTier3: String = "com.bookreader.test.booktier3"
+        public static let inAppConsumableRental7: String = "com.bookreader.test.rental7"
+        public static let inAppConsumableRental14: String = "com.bookreader.test.rental14"
     }
     
     public struct NotificationIdentifiers {

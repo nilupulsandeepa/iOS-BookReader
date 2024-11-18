@@ -34,7 +34,7 @@ public class SessionViewModel: ObservableObject {
         )
     }
     
-    private func handleBookPurchase(bookId: String) {
+    private func handleBookPurchase(bookId: String, isRental: Bool) {
         if let userId = currentUser?.id {
             let bookInfo: [String: Any] = [
                 "bookId": bookId,
@@ -42,7 +42,7 @@ public class SessionViewModel: ObservableObject {
                 "rentedTimestamp": Int(Date().timeIntervalSince1970),
                 "progress": 0,
                 "isCloudSynced": true,
-                "isRented": false
+                "isRented": isRental
             ]
             let path: String = "/users/\(userId)/purchased_books/\(bookId)"
             FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo) {
@@ -242,8 +242,9 @@ public class SessionViewModel: ObservableObject {
     }
     
     @objc private func sessionUserPurchasedBook(notification: Notification) {
-        let m_BookId: String = notification.userInfo!["bookId"] as! String
-        handleBookPurchase(bookId: m_BookId)
+        let bookId: String = notification.userInfo!["bookId"] as! String
+        let isRental: Bool = notification.userInfo!["isRental"] as! Bool
+        handleBookPurchase(bookId: bookId, isRental: isRental)
     }
     
     deinit {
