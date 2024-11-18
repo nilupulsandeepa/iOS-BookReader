@@ -16,4 +16,4 @@ Technologies used:
 * PDFKit for rendering pdf files
 
 ![Screenshot of a bookreader app main screen](/screenshots/14.43.42.png) ![Screenshot of a bookreader app main screen](/screenshots/14.43.58.png) ![Screenshot of a bookreader app main screen](/screenshots/14.44.11.png)
-![Screenshot of a bookreader app main screen](/screenshots/14.44.16.png) ![Screenshot of a bookreader app main screen](/screenshots/14.44.32.png) 
+![Screenshot of a bookreader app main screen](/screenshots/14.44.16.png) ![Screenshot of a bookreader app main screen](/screenshots/14.44.23.png) ![Screenshot of a bookreader app main screen](/screenshots/14.44.32.png) 
