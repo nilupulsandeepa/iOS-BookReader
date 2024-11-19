@@ -30,11 +30,11 @@ public class User: Codable {
 public class UserBookRecord: Codable {
     public var bookId: String!
     public var isExpired: Bool!
-    public var rentedTimestamp: Int!
+    public var rentExpirationTimestamp: Int!
     
     enum CodingKeys: String, CodingKey {
         case bookId = "book_id"
         case isExpired = "isExpired"
-        case rentedTimestamp = "rented_timestamp"
+        case rentExpirationTimestamp = "rentExpirationTimestamp"
     }
 }

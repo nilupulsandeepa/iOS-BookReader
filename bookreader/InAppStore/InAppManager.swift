@@ -65,7 +65,7 @@ public class InAppManager {
                         purchaseSuccess(productId: allInAppProducts[productId]!)
                     default:
                         purchaseFailed()
-                        print("Error")
+                        print("Purchase Failed")
                     }
                 default:
                     print("Purchase Failed")
@@ -78,12 +78,12 @@ public class InAppManager {
     public func listenForTransactions() {
         Task {
             for await result in Transaction.updates {
-                print("Listining")
+                print("Purchase Listining")
                 switch result {
                 case .verified(let transaction):
                     await transaction.finish()
                 default:
-                    print("Listining Error")
+                    print("Purchase Listining Error")
                 }
             }
         }

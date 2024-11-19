@@ -23,24 +23,21 @@ public class FIRStorageManager {
     
     //---- MARK: Action Methods
     public func getFile() {
-        storageReference?.child("/books/-O9-mNJolBCjdEXdTQWI.txt").downloadURL(completion: {
-            (url, error) in
-            if let url {
-                let request = URLRequest(url: url)
-                URLSession.shared.downloadTask(with: request) {
-                    (tempUrl, response, error) in
-                    if let tempUrl {
-                        let content = try? String(contentsOf: tempUrl)
-                        print(content)
-                    } else {
-                        print("Download")
-                        print(error?.localizedDescription)
-                    }
-                }.resume()
-            } else {
-                print("REferee")
-                print(error?.localizedDescription)
-            }
-        })
+//        storageReference?.child("/books/-O9-mNJolBCjdEXdTQWI.txt").downloadURL(completion: {
+//            (url, error) in
+//            if let url {
+//                let request = URLRequest(url: url)
+//                URLSession.shared.downloadTask(with: request) {
+//                    (tempUrl, response, error) in
+//                    if let tempUrl {
+//                        let content = try? String(contentsOf: tempUrl)
+//                    } else {
+//                        print(error?.localizedDescription)
+//                    }
+//                }.resume()
+//            } else {
+//                print(error?.localizedDescription)
+//            }
+//        })
     }
 }

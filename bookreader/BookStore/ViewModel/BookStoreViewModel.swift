@@ -40,22 +40,21 @@ public class BookStoreViewModel: NSObject, ObservableObject {
         }
         Utils.delayExecution(seconds: 1.0) {
             [weak self] in
-            guard let self else {
-                return
-            }
-            FIRDatabaseManager.shared.observeDataAtPathOnce(path: "\(NameSpaces.FirebasePaths.books)/\(self.selectedBook!.id)") {
-                [weak self] (snapshot) in
-                let bookDetailsObj: Book = try! JSONDecoder().decode(Book.self, from: JSONSerialization.data(withJSONObject: snapshot.value!))
-                if let self {
-                    var updatedBook: Book = Book(id: selectedBook!.id, name: selectedBook!.name)
-                    updatedBook.authorId = bookDetailsObj.authorId
-                    updatedBook.authorName = bookDetailsObj.authorName
-                    updatedBook.priceTier = bookDetailsObj.priceTier
-                    updatedBook.description = bookDetailsObj.description
-                    CoreDataManager.shared.cacheBook(book: updatedBook)
-                    DispatchQueue.main.async {
-                        self.selectedBook = updatedBook
-                        self.isAdditionalDetailsLoaded = true
+            if let self {
+                FIRDatabaseManager.shared.observeDataAtPathOnce(path: "\(NameSpaces.FirebasePaths.books)/\(self.selectedBook!.id)") {
+                    [weak self] (snapshot) in
+                    let bookDetailsObj: Book = try! JSONDecoder().decode(Book.self, from: JSONSerialization.data(withJSONObject: snapshot.value!))
+                    if let self {
+                        var updatedBook: Book = Book(id: selectedBook!.id, name: selectedBook!.name)
+                        updatedBook.authorId = bookDetailsObj.authorId
+                        updatedBook.authorName = bookDetailsObj.authorName
+                        updatedBook.priceTier = bookDetailsObj.priceTier
+                        updatedBook.description = bookDetailsObj.description
+                        CoreDataManager.shared.cacheBook(book: updatedBook)
+                        DispatchQueue.main.async {
+                            self.selectedBook = updatedBook
+                            self.isAdditionalDetailsLoaded = true
+                        }
                     }
                 }
             }
@@ -141,13 +140,23 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     }
     
     @objc private func purchaseSuccess(notification: Notification) {
+        if (isRent7Purchasing || isRent14Purchasing) {
+            DispatchQueue.main.sync {
+                [weak self] in
+                if let self {
+                    self.selectedBook!.rentExpirationTimestamp = Int(Date().timeIntervalSince1970 + (20))//(isRent7Purchasing ? 604800 : 1209600))
+                    self.selectedBook!.isExpired = false
+                }
+            }
+        }
         CoreDataManager.shared.saveBook(book: selectedBook!)
         NotificationCenter.default.post(
             name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification),
             object: nil,
             userInfo: [
                 "bookId": selectedBook!.id,
-                "isRental": isRent7Purchasing || isRent14Purchasing
+                "isRental": isRent7Purchasing || isRent14Purchasing,
+                "rentExpirationTimestamp": selectedBook!.rentExpirationTimestamp ?? 0
             ]
         )
         DispatchQueue.main.async {

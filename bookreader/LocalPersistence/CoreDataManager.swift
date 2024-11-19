@@ -32,6 +32,9 @@ public class CoreDataManager {
             newBook.progress = 0
             newBook.isCloudSynced = false
             newBook.isRented = book.isRented!
+            newBook.priceTier = book.priceTier
+            newBook.rentExpirationTimestamp = Int64(book.rentExpirationTimestamp ?? 0)
+            newBook.isExpired = book.isExpired!
             
             do {
                 try managedContext.save()
@@ -54,6 +57,8 @@ public class CoreDataManager {
                     convertedBook.progress = Int($0.progress)
                     convertedBook.isRented = $0.isRented
                     convertedBook.priceTier = $0.priceTier
+                    convertedBook.rentExpirationTimestamp = Int($0.rentExpirationTimestamp)
+                    convertedBook.isExpired = $0.isExpired
                     return convertedBook
                 }
             }
@@ -75,6 +80,8 @@ public class CoreDataManager {
                     convertedBook.progress = Int($0.progress)
                     convertedBook.isRented = $0.isRented
                     convertedBook.priceTier = $0.priceTier
+                    convertedBook.rentExpirationTimestamp = Int($0.rentExpirationTimestamp)
+                    convertedBook.isExpired = $0.isExpired
                     return convertedBook
                 }
             }
@@ -110,6 +117,15 @@ public class CoreDataManager {
             if let books = try managedContext?.fetch(fetchRequest) {
                 for book in books {
                     book.isCloudSynced = bookIdDictionary[book.id!]!.isCloudSynced!
+                    book.id = bookIdDictionary[book.id!]!.id
+                    book.name = bookIdDictionary[book.id!]!.name
+                    book.authorName = bookIdDictionary[book.id!]!.authorName
+                    book.authorId = bookIdDictionary[book.id!]!.authorId
+                    book.progress = Int16(bookIdDictionary[book.id!]!.progress!)
+                    book.isRented = bookIdDictionary[book.id!]!.isRented!
+                    book.priceTier = bookIdDictionary[book.id!]!.priceTier
+                    book.rentExpirationTimestamp = Int64(bookIdDictionary[book.id!]!.rentExpirationTimestamp ?? 0)
+                    book.isExpired = bookIdDictionary[book.id!]!.isExpired!
                 }
             }
             try managedContext?.save()

@@ -19,9 +19,9 @@ public class AuthenticationViewModel: ObservableObject {
             [unowned self]
             auth, user in
             if user != nil {
-                print("Have User")
+                print("Session Have User")
             } else {
-                print("No User")
+                print(" Session No User")
                 UserDefaultManager.shared.currentUser = nil
             }
             notifyUserChanges()

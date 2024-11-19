@@ -40,7 +40,7 @@ public class LibraryViewModel: ObservableObject {
     }
     
     private func retrieveBookList() {
-        if let books: [Book] = CoreDataManager.shared.fetchPurchasedBooks() {
+        if let books: [Book] = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "isExpired == NO") {
             for book in books {
                 if let isRented = book.isRented {
                     DispatchQueue.main.async {

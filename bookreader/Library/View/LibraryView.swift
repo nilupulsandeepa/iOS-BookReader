@@ -11,6 +11,7 @@ struct LibraryView: View {
     
     //---- MARK: Properties
     @StateObject private var libraryViewModel: LibraryViewModel = LibraryViewModel()
+    @State private var isBookReadingViewPresented: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -101,6 +102,13 @@ struct LibraryView: View {
                                             .padding([.top], 4)
                                             .shadow(color: Color(uiColor: UIColor(red: 64.0 / 255.0, green: 64.0 / 255.0, blue: 64.0 / 255.0, alpha: 0.15)), radius: 5)
                                             .padding([.leading, .trailing], 20)
+                                            .onTapGesture {
+                                                isBookReadingViewPresented = true
+                                                CoreDataManager.shared.hardcodedBook(bookId: item.id)
+                                            }
+                                            .fullScreenCover(isPresented: $isBookReadingViewPresented) {
+                                                DocumentView(isPresented: $isBookReadingViewPresented)
+                                            }
                                     }
                                 }
                                 .padding([.bottom], 20)

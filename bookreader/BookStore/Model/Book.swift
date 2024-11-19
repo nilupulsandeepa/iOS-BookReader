@@ -17,6 +17,8 @@ public struct Book: Hashable, Codable, Identifiable {
     public var isCloudSynced: Bool? = nil
     public var isRented: Bool? = nil
     public var priceTier: String? = nil
+    public var rentExpirationTimestamp: Int? = nil
+    public var isExpired: Bool? = nil
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -25,6 +27,8 @@ public struct Book: Hashable, Codable, Identifiable {
         case authorId = "authorId"
         case authorName = "authorName"
         case priceTier = "priceTier"
+        case rentExpirationTimestamp = "rentExpirationTimestamp"
+        case isExpired = "isExpired"
     }
     
     init(id: String, name: String) {

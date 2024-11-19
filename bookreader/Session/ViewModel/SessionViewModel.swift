@@ -34,15 +34,15 @@ public class SessionViewModel: ObservableObject {
         )
     }
     
-    private func handleBookPurchase(bookId: String, isRental: Bool) {
+    private func handleBookPurchase(bookId: String, rentalData: (isRental: Bool, rentExpirationTimestamp: Int)) {
         if let userId = currentUser?.id {
             let bookInfo: [String: Any] = [
                 "bookId": bookId,
                 "isExpired": false,
-                "rentedTimestamp": Int(Date().timeIntervalSince1970),
+                "rentExpirationTimestamp": rentalData.rentExpirationTimestamp,
                 "progress": 0,
                 "isCloudSynced": true,
-                "isRented": isRental
+                "isRented": rentalData.isRental
             ]
             let path: String = "/users/\(userId)/purchased_books/\(bookId)"
             FIRDatabaseManager.shared.setValueAtPath(path: path, value: bookInfo) {
@@ -104,7 +104,7 @@ public class SessionViewModel: ObservableObject {
                                             "bookId": book.id,
                                             "isCloudSynced": true,
                                             "isRented": book.isRented!,
-                                            "rentedTimestamp": Date().timeIntervalSince1970,
+                                            "rentExpirationTimestamp": book.rentExpirationTimestamp ?? 0,
                                             "isExpired": false,
                                             "progress": book.progress!
                                         ]
@@ -177,7 +177,7 @@ public class SessionViewModel: ObservableObject {
                                     "bookId": book.id,
                                     "isCloudSynced": true,
                                     "isRented": book.isRented!,
-                                    "rentedTimestamp": Date().timeIntervalSince1970,
+                                    "rentExpirationTimestamp": book.rentExpirationTimestamp ?? 0,
                                     "isExpired": false,
                                     "progress": book.progress!
                                 ]
@@ -196,6 +196,9 @@ public class SessionViewModel: ObservableObject {
                     }
                 }
             }
+            if let self {
+                self.checkForExpiredBooks()
+            }
         }
     }
     
@@ -211,6 +214,7 @@ public class SessionViewModel: ObservableObject {
                     bookObj.isCloudSynced = (bookData["isCloudSynced"] as! Bool)
                     bookObj.isRented = (bookData["isRented"] as! Bool)
                     bookObj.progress = (bookData["progress"] as! Int)
+                    bookObj.rentExpirationTimestamp = (bookData["rentExpirationTimestamp"] as! Int)
                     
                     continuation.resume(returning: bookObj)
                 } else {
@@ -244,7 +248,32 @@ public class SessionViewModel: ObservableObject {
     @objc private func sessionUserPurchasedBook(notification: Notification) {
         let bookId: String = notification.userInfo!["bookId"] as! String
         let isRental: Bool = notification.userInfo!["isRental"] as! Bool
-        handleBookPurchase(bookId: bookId, isRental: isRental)
+        let rentExpirationTimestamp: Int = notification.userInfo!["rentExpirationTimestamp"] as! Int
+        handleBookPurchase(bookId: bookId, rentalData: (isRental, rentExpirationTimestamp))
+    }
+    
+    private func checkForExpiredBooks() {
+        print("SessionViewModel: Checking for expired books")
+        if let rentedBooks = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "isRented == YES AND isExpired == NO", args: NSNumber(value: Int64(Date().timeIntervalSince1970))) {
+            let currentTimeStamp: Int = Int(Date().timeIntervalSince1970)
+            let updatedBooks: [Book] = rentedBooks.filter {
+                return $0.rentExpirationTimestamp! < currentTimeStamp
+            }.map {
+                var updatedBook: Book = Book(id: $0.id, name: $0.name)
+                updatedBook.description = $0.description
+                updatedBook.authorId = $0.authorId
+                updatedBook.authorName = $0.authorName
+                updatedBook.progress = $0.progress
+                updatedBook.isCloudSynced = $0.isCloudSynced
+                updatedBook.isRented = $0.isRented
+                updatedBook.priceTier = $0.priceTier
+                updatedBook.rentExpirationTimestamp = $0.rentExpirationTimestamp
+                updatedBook.isExpired = true
+                return updatedBook
+            }
+            print("SessionViewModel: Deleting \(updatedBooks.count) rented books")
+            CoreDataManager.shared.batchUpdatePurchasedBooks(books: updatedBooks)
+        }
     }
     
     deinit {
