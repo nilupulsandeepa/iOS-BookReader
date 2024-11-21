@@ -63,6 +63,10 @@ public class SessionViewModel: ObservableObject {
                     self.crossMatchPurchasedBookList(data: snapshot.exists() ? snapshot.value! : nil)
                 }
             }
+        } else {
+            Task {
+                await checkForExpiredBooks()
+            }
         }
     }
     
@@ -178,7 +182,7 @@ public class SessionViewModel: ObservableObject {
                                     "isCloudSynced": true,
                                     "isRented": book.isRented!,
                                     "rentExpirationTimestamp": book.rentExpirationTimestamp ?? 0,
-                                    "isExpired": false,
+                                    "isExpired": book.isExpired ?? false,
                                     "progress": book.progress!
                                 ]
                                 
