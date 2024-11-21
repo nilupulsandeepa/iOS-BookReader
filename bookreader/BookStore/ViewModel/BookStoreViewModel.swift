@@ -62,7 +62,7 @@ public class BookStoreViewModel: NSObject, ObservableObject {
     }
     
     public func checkIfBookAlreadyPurchased() {
-        if let selectedBooks: [Book] = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "id = %@", args: selectedBook!.id) {
+        if let selectedBooks: [Book] = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "id = %@ AND isExpired == NO", args: selectedBook!.id) {
             DispatchQueue.main.async {
                 [weak self] in
                 if let self {

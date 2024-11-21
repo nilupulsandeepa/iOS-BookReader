@@ -197,7 +197,9 @@ public class SessionViewModel: ObservableObject {
                 }
             }
             if let self {
-                self.checkForExpiredBooks()
+                Task {
+                    await self.checkForExpiredBooks()
+                }
             }
         }
     }
@@ -252,28 +254,43 @@ public class SessionViewModel: ObservableObject {
         handleBookPurchase(bookId: bookId, rentalData: (isRental, rentExpirationTimestamp))
     }
     
-    private func checkForExpiredBooks() {
-        print("SessionViewModel: Checking for expired books")
-        if let rentedBooks = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "isRented == YES AND isExpired == NO", args: NSNumber(value: Int64(Date().timeIntervalSince1970))) {
-            let currentTimeStamp: Int = Int(Date().timeIntervalSince1970)
-            let updatedBooks: [Book] = rentedBooks.filter {
-                return $0.rentExpirationTimestamp! < currentTimeStamp
-            }.map {
-                var updatedBook: Book = Book(id: $0.id, name: $0.name)
-                updatedBook.description = $0.description
-                updatedBook.authorId = $0.authorId
-                updatedBook.authorName = $0.authorName
-                updatedBook.progress = $0.progress
-                updatedBook.isCloudSynced = $0.isCloudSynced
-                updatedBook.isRented = $0.isRented
-                updatedBook.priceTier = $0.priceTier
-                updatedBook.rentExpirationTimestamp = $0.rentExpirationTimestamp
-                updatedBook.isExpired = true
-                return updatedBook
+    private func checkForExpiredBooks() async {
+        return await withCheckedContinuation {
+            (continuation) in
+            print("SessionViewModel: Checking for expired books")
+            if let rentedBooks = CoreDataManager.shared.fetchPurchasedBooksByQuery(query: "isRented == YES AND isExpired == NO", args: NSNumber(value: Int64(Date().timeIntervalSince1970))) {
+                let currentTimeStamp: Int = Int(Date().timeIntervalSince1970)
+                var batchUpdatingChildren: [String: Any] = [:]
+                let updatedBooks: [Book] = rentedBooks.filter {
+                    return $0.rentExpirationTimestamp! < currentTimeStamp
+                }.map {
+                    var updatedBook: Book = Book(id: $0.id, name: $0.name)
+                    updatedBook.description = $0.description
+                    updatedBook.authorId = $0.authorId
+                    updatedBook.authorName = $0.authorName
+                    updatedBook.progress = $0.progress
+                    updatedBook.isCloudSynced = $0.isCloudSynced
+                    updatedBook.isRented = $0.isRented
+                    updatedBook.priceTier = $0.priceTier
+                    updatedBook.rentExpirationTimestamp = $0.rentExpirationTimestamp
+                    updatedBook.isExpired = true
+                    if let currentUser {
+                        batchUpdatingChildren["/users/\(currentUser.id!)/purchased_books/\($0.id)/isExpired"] = true
+                    }
+                    return updatedBook
+                }
+                print("SessionViewModel: Deleting \(updatedBooks.count) rented books")
+                CoreDataManager.shared.batchUpdatePurchasedBooks(books: updatedBooks)
+                if let currentUser {
+                    FIRDatabaseManager.shared.batchUpdateChildrens(children: batchUpdatingChildren) {
+                        continuation.resume()
+                    }
+                } else {
+                    continuation.resume()
+                }
             }
-            print("SessionViewModel: Deleting \(updatedBooks.count) rented books")
-            CoreDataManager.shared.batchUpdatePurchasedBooks(books: updatedBooks)
         }
+        
     }
     
     deinit {
