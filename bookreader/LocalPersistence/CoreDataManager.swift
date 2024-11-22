@@ -24,22 +24,29 @@ public class CoreDataManager {
     
     public func saveBook(book: Book) {
         if let managedContext {
-            let newBook: DBBook = DBBook(context: managedContext)
-            newBook.id = book.id
-            newBook.name = book.name
-            newBook.authorName = book.authorName
-            newBook.authorId = book.authorId
-            newBook.progress = 0
-            newBook.isCloudSynced = false
-            newBook.isRented = book.isRented!
-            newBook.priceTier = book.priceTier
-            newBook.rentExpirationTimestamp = Int64(book.rentExpirationTimestamp ?? 0)
-            newBook.isExpired = book.isExpired!
-            
-            do {
-                try managedContext.save()
-            } catch {
-                fatalError(error.localizedDescription)
+            if let books: [Book] = fetchPurchasedBooksByQuery(query: "id == %@", args: book.id), books.count > 0 {
+                var newBook = book
+                newBook.isCloudSynced = false
+                newBook.progress = books[0].progress ?? 0
+                batchUpdatePurchasedBooks(books: [newBook])
+            } else {
+                let newBook: DBBook = DBBook(context: managedContext)
+                newBook.id = book.id
+                newBook.name = book.name
+                newBook.authorName = book.authorName
+                newBook.authorId = book.authorId
+                newBook.progress = 0
+                newBook.isCloudSynced = false
+                newBook.isRented = book.isRented!
+                newBook.priceTier = book.priceTier
+                newBook.rentExpirationTimestamp = Int64(book.rentExpirationTimestamp ?? 0)
+                newBook.isExpired = book.isExpired ?? false
+                
+                do {
+                    try managedContext.save()
+                } catch {
+                    fatalError(error.localizedDescription)
+                }
             }
         }
     }

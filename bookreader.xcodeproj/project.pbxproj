@@ -55,6 +55,7 @@
 		5186E5142CDB329800A1A221 /* LibraryBookItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5132CDB329800A1A221 /* LibraryBookItemView.swift */; };
 		5186E5162CDB443F00A1A221 /* TestProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5152CDB443F00A1A221 /* TestProgressView.swift */; };
 		5186E51A2CDB527400A1A221 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5186E5192CDB527400A1A221 /* LibraryViewModel.swift */; };
+		518E7C352CEF5A76008501B9 /* BackgroundTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518E7C342CEF5A76008501B9 /* BackgroundTimer.swift */; };
 		5191846D2CDBEE2A00BFFC29 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5191846C2CDBEE2A00BFFC29 /* FirebaseFirestore */; };
 		5191846F2CDC622C00BFFC29 /* CacheBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5191846E2CDC622C00BFFC29 /* CacheBook.swift */; };
 		519367FE2CC15E6200CA505F /* BookDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519367FD2CC15E6200CA505F /* BookDetailsViewModel.swift */; };
@@ -110,6 +111,7 @@
 		5186E5132CDB329800A1A221 /* LibraryBookItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryBookItemView.swift; sourceTree = "<group>"; };
 		5186E5152CDB443F00A1A221 /* TestProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProgressView.swift; sourceTree = "<group>"; };
 		5186E5192CDB527400A1A221 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		518E7C342CEF5A76008501B9 /* BackgroundTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimer.swift; sourceTree = "<group>"; };
 		5191846E2CDC622C00BFFC29 /* CacheBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheBook.swift; sourceTree = "<group>"; };
 		519367FD2CC15E6200CA505F /* BookDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailsViewModel.swift; sourceTree = "<group>"; };
 		519603782CDA9EB000E63991 /* LibraryCurrentBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCurrentBookView.swift; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				51ED079A2CC905B800D8014F /* ViewModel */,
 				51C0CD302CE3444100B642C0 /* ConnectivityManager.swift */,
 				51C0CD322CE362A000B642C0 /* NetworkState.swift */,
+				518E7C342CEF5A76008501B9 /* BackgroundTimer.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				516A0CB12CBBB82B0026954E /* StorageManager.swift in Sources */,
 				5114B1A52CB8F774005655A9 /* bookreaderApp.swift in Sources */,
 				516A0CB32CBBB83F0026954E /* NameSpaces.swift in Sources */,
+				518E7C352CEF5A76008501B9 /* BackgroundTimer.swift in Sources */,
 				516BD1FD2CBA981B0009CA9C /* AppDelegate.swift in Sources */,
 				5186E5162CDB443F00A1A221 /* TestProgressView.swift in Sources */,
 				516BD1FB2CBA7EF50009CA9C /* BookThumbnailView.swift in Sources */,

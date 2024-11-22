@@ -32,6 +32,13 @@ public class SessionViewModel: ObservableObject {
             name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification),
             object: nil
         )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(triggerBackgroundRentalCheck),
+            name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.backgroundRentCheckNotification),
+            object: nil
+        )
     }
     
     private func handleBookPurchase(bookId: String, rentalData: (isRental: Bool, rentExpirationTimestamp: Int)) {
@@ -239,25 +246,6 @@ public class SessionViewModel: ObservableObject {
         }
     }
     
-    @objc private func sessionUserUpdated(notification: Notification) {
-        let data: [AnyHashable: Any] = notification.userInfo!
-        let newUser: User? = data["newUser"] as? User
-        DispatchQueue.main.async {
-            [weak self] in
-            if let self {
-                self.currentUser = newUser
-                self.retrieveUserPurchasedBookList()
-            }
-        }
-    }
-    
-    @objc private func sessionUserPurchasedBook(notification: Notification) {
-        let bookId: String = notification.userInfo!["bookId"] as! String
-        let isRental: Bool = notification.userInfo!["isRental"] as! Bool
-        let rentExpirationTimestamp: Int = notification.userInfo!["rentExpirationTimestamp"] as! Int
-        handleBookPurchase(bookId: bookId, rentalData: (isRental, rentExpirationTimestamp))
-    }
-    
     private func checkForExpiredBooks() async {
         return await withCheckedContinuation {
             (continuation) in
@@ -285,7 +273,7 @@ public class SessionViewModel: ObservableObject {
                 }
                 print("SessionViewModel: Deleting \(updatedBooks.count) rented books")
                 CoreDataManager.shared.batchUpdatePurchasedBooks(books: updatedBooks)
-                if let currentUser {
+                if currentUser != nil {
                     FIRDatabaseManager.shared.batchUpdateChildrens(children: batchUpdatingChildren) {
                         continuation.resume()
                     }
@@ -296,9 +284,38 @@ public class SessionViewModel: ObservableObject {
         }
         
     }
+        
+    @objc private func sessionUserUpdated(notification: Notification) {
+        let data: [AnyHashable: Any] = notification.userInfo!
+        let newUser: User? = data["newUser"] as? User
+        DispatchQueue.main.async {
+            [weak self] in
+            if let self {
+                self.currentUser = newUser
+                self.retrieveUserPurchasedBookList()
+            }
+        }
+    }
+    
+    @objc private func sessionUserPurchasedBook(notification: Notification) {
+        let bookId: String = notification.userInfo!["bookId"] as! String
+        let isRental: Bool = notification.userInfo!["isRental"] as! Bool
+        let rentExpirationTimestamp: Int = notification.userInfo!["rentExpirationTimestamp"] as! Int
+        handleBookPurchase(bookId: bookId, rentalData: (isRental, rentExpirationTimestamp))
+    }
+    
+    @objc private func triggerBackgroundRentalCheck() {
+        Task(priority: .userInitiated) {
+            [weak self] in
+            if let self {
+                await self.checkForExpiredBooks()
+            }
+        }
+    }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserUpdatedNotification), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.sessionUserPurchasedBookNotification), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NameSpaces.NotificationIdentifiers.backgroundRentCheckNotification), object: nil)
     }
 }

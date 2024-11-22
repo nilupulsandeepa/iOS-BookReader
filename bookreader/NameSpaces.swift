@@ -39,5 +39,7 @@ public struct NameSpaces {
         public static let sessionUserPurchasedBookNotification: String = "com.bookreader.notification.sessionUserPurchasedBook"
         
         public static let networkStateChangedNotification: String = "com.bookreader.notification.networkStateChangedNotification"
+        
+        public static let backgroundRentCheckNotification: String = "com.bookreader.notification.backgroundRentCheckNotification"
     }
 }

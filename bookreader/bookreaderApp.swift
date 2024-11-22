@@ -21,6 +21,7 @@ struct bookreaderApp: App {
     init() {
         CoreDataManager.shared.initializeCoreData(context: persistenceController.container.newBackgroundContext())
         ConnectivityManager.shared.startListening()
+        BackgroundTimer.shared.startRentalTimer()
     }
     
     var body: some Scene {
