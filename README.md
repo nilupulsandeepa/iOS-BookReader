@@ -1,5 +1,5 @@
 # iOS-BookReader
-### Proof of concept type project for education
+### Proof of concept type project for education (On going)
 
 Technologies used:
 * MVVM architecture
